@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class WaterMove : MonoBehaviour
 {
-    const float SPEED = 15f;
+    const float SPEED = 20f;
 
-    const float DESTROY_TIME = 1;
+    const float DESTROY_TIME = 3;
 
     float m_DestroyCount = 0;
 
@@ -34,7 +34,7 @@ public class WaterMove : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //è∞Ç…ìñÇΩÇ¡ÇΩÇÁ
-        if (other.gameObject.tag == "Floor")
+        if (other.gameObject.tag == "Ground")
         {
             Destroy(this.gameObject);
         }

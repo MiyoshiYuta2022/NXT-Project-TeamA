@@ -27,11 +27,22 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
 
         // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
+        float cameraRotateX = Camera.main.transform.localEulerAngles.x;
+
+        //‰E˜r‚ÌƒIƒuƒWƒFƒNƒgæ“¾
+        GameObject rightarm = transform.Find("RightArm").gameObject;
+
+        // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Æ‰E˜r‚Ì‰ñ“]Šp‚ğ“¯Šú
+        rightarm.transform.localEulerAngles = new Vector3(cameraRotateX * -1 + 90, -90.0f, -90.0f);
+
+
+        // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
         float cameraRotateY = Camera.main.transform.localEulerAngles.y;
 
         // ƒJƒƒ‰‚Ì‰ñ“]Šp‚ÆƒvƒŒƒCƒ„[‚Ì‰ñ“]Šp‚ğ“¯Šú
         this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
 
+        //ˆÚ“®ˆ—
         if (horizontal != 0 || vertical != 0)
         {
             moveDirection = speed * new Vector3(vertical, 0, -horizontal);

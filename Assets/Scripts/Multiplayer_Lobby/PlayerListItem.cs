@@ -8,20 +8,20 @@ using Photon.Pun;
 public class PlayerListItem : MonoBehaviourPunCallbacks
 {
     private TMP_Text text;
-    private Photon.Realtime.Player player;
-    
-    public void setUp(Photon.Realtime.Player _player)
+    private Player player;
+
+    public void setUp(Player _player)
     {
         text = GetComponentInChildren<TMP_Text>();
         player = _player;
         text.text = _player.NickName;
-        if(PhotonNetwork.LocalPlayer==_player)
+        if (PhotonNetwork.LocalPlayer == _player)
         {
             text.color = Color.red;
         }
     }
 
-    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         if (player == otherPlayer)
         {

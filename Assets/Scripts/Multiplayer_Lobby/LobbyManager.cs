@@ -121,7 +121,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // display room name
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         // get player list
-        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+        Player[] players = PhotonNetwork.PlayerList;
 
         //display list of player in the room
         foreach (Transform child in playerListContent)
@@ -138,7 +138,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     // display start game button for new room leader is changed
-    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    public override void OnMasterClientSwitched(Player newMasterClient)
     {
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
@@ -205,7 +205,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     // display player name is player list
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().setUp(newPlayer);
     }

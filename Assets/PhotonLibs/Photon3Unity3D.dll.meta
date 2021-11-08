@@ -1,5 +1,10 @@
 fileFormatVersion: 2
-guid: 3b5a0a7dce46a13459199d174ad3db3f
+guid: 587556c74f03cde4eb3df6481234a486
+labels:
+- ExitGames
+- PUN
+- Photon
+- Networking
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -17,16 +22,6 @@ PluginImporter:
       enabled: 1
       settings: {}
   - first:
-      '': WP8
-    second:
-      enabled: 1
-      settings:
-        CPU: AnyCPU
-        DontProcess: False
-        PlaceholderPath: Assets/Photon/PhotonLibs/Photon3Unity3D.dll
-        SDK: AnySDK
-        ScriptingBackend: DotNet
-  - first:
       Editor: Editor
     second:
       enabled: 0
@@ -35,13 +30,9 @@ PluginImporter:
   - first:
       Windows Store Apps: WindowsStoreApps
     second:
-      enabled: 1
+      enabled: 0
       settings:
         CPU: AnyCPU
-        DontProcess: false
-        PlaceholderPath: Assets/Photon/PhotonLibs/Photon3Unity3D.dll
-        SDK: AnySDK
-        ScriptingBackend: DotNet
   userData: 
   assetBundleName: 
   assetBundleVariant: 

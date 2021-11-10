@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+using Photon.Pun;
+using TMPro;
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public float speed = 3f;
     public float jumpPower = 3f;
@@ -23,40 +25,44 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
 
-        // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
-        float cameraRotateX = Camera.main.transform.localEulerAngles.x;
-
-        //‰E˜r‚ÌƒIƒuƒWƒFƒNƒgæ“¾
-        GameObject rightarm = transform.Find("RightArm").gameObject;
-
-        // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Æ‰E˜r‚Ì‰ñ“]Šp‚ğ“¯Šú
-        rightarm.transform.localEulerAngles = new Vector3(cameraRotateX * -1 + 90, -90.0f, -90.0f);
-
-
-        // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
-        float cameraRotateY = Camera.main.transform.localEulerAngles.y;
-
-        // ƒJƒƒ‰‚Ì‰ñ“]Šp‚ÆƒvƒŒƒCƒ„[‚Ì‰ñ“]Šp‚ğ“¯Šú
-        this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
-
-        //ˆÚ“®ˆ—
-        if (horizontal != 0 || vertical != 0)
+        if (photonView.IsMine)
         {
-            moveDirection = speed * new Vector3(vertical, 0, -horizontal);
-            moveDirection = transform.TransformDirection(moveDirection);
-            //rb.velocity = moveDirection;
-            rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
-        }
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
 
-        if (isGround == true)//’…’n‚µ‚Ä‚¢‚é‚Æ‚«
-        {
-            if (Input.GetKeyDown("space"))
+            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
+            float cameraRotateX = Camera.main.transform.localEulerAngles.x;
+
+            //‰E˜r‚ÌƒIƒuƒWƒFƒNƒgæ“¾
+            GameObject rightarm = transform.Find("RightArm").gameObject;
+
+            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Æ‰E˜r‚Ì‰ñ“]Šp‚ğ“¯Šú
+            rightarm.transform.localEulerAngles = new Vector3(cameraRotateX * -1 + 90, -90.0f, -90.0f);
+
+
+            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
+            float cameraRotateY = Camera.main.transform.localEulerAngles.y;
+
+            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚ÆƒvƒŒƒCƒ„[‚Ì‰ñ“]Šp‚ğ“¯Šú
+            this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
+
+            //ˆÚ“®ˆ—
+            if (horizontal != 0 || vertical != 0)
             {
-                isGround = false;//  isGround‚ğfalse‚É‚·‚é
-                rb.AddForce(new Vector3(0, jumpPower, 0)); //ã‚ÉŒü‚©‚Á‚Ä—Í‚ğ‰Á‚¦‚é
+                moveDirection = speed * new Vector3(vertical, 0, -horizontal);
+                moveDirection = transform.TransformDirection(moveDirection);
+                //rb.velocity = moveDirection;
+                rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
+            }
+
+            if (isGround == true)//’…’n‚µ‚Ä‚¢‚é‚Æ‚«
+            {
+                if (Input.GetKeyDown("space"))
+                {
+                    isGround = false;//  isGround‚ğfalse‚É‚·‚é
+                    rb.AddForce(new Vector3(0, jumpPower, 0)); //ã‚ÉŒü‚©‚Á‚Ä—Í‚ğ‰Á‚¦‚é
+                }
             }
         }
     }

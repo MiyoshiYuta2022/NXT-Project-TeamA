@@ -13,7 +13,7 @@ public class RoomListItem : MonoBehaviour
     {
         text = GetComponentInChildren<TMP_Text>();
         info = _info;
-        text.text = _info.Name;
+        text.text = _info.Name + " --- " + _info.PlayerCount + " / " + _info.MaxPlayers;
     }
 
     public void onClick()

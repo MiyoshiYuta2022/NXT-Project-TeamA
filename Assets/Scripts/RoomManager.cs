@@ -7,7 +7,7 @@ using System.IO;
 
 
 // player/team color
-namespace gameColor
+namespace gameMode
 {
     public class CGameColors
     {
@@ -24,25 +24,25 @@ namespace gameColor
             GC_TOTAL
         }
 
-        public static Color getDefColor(GameColors c)
+        public static Color getDefColor(int c)
         {
             switch (c)
             {
-                case GameColors.GC_RED:
+                case 0:
                     return Color.red;
-                case GameColors.GC_BLUE:
+                case 1:
                     return Color.blue;
-                case GameColors.GC_GREEN:
+                case 2:
                     return Color.green;
-                case GameColors.GC_YELLOW:
+                case 3:
                     return Color.yellow;
-                case GameColors.GC_MAGENTA:
+                case 4:
                     return Color.magenta;
-                case GameColors.GC_CYAN:
+                case 5:
                     return Color.cyan;
-                case GameColors.GC_BLACK:
+                case 6:
                     return Color.black;
-                case GameColors.GC_WHITE:
+                case 7:
                     return Color.white;
                 default:
                     return Color.gray;
@@ -55,7 +55,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
 
     public static RoomManager instance;
-
+    private bool gamemode;
     private void Awake()
     {
         if(instance)
@@ -84,6 +84,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if(scene.buildIndex==1) // in first game/level scene
         {
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","PlayerManager"),Vector3.zero,Quaternion.identity);
+
+            //can i move this line to inside the player manager script?/この行をプレーヤーマネージャースクリプト内に移動できますか？
             PhotonNetwork.Instantiate(Path.Combine("human()"), Vector3.zero, Quaternion.identity);
         }
     }

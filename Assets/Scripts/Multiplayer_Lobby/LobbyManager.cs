@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 // for multiplayer lobby code (creating/finding room, connection to server, etc) and UI toggle
 public class LobbyManager : MonoBehaviourPunCallbacks
@@ -15,9 +16,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject createRoomPanel;
     [SerializeField] GameObject findRoomPanel;
     [SerializeField] GameObject lobbyPanel;
+    [SerializeField] GameObject gameModePanel;
     [SerializeField] TMP_InputField roomNameInput;
     [SerializeField] TMP_Text createRoomErrorText;
     [SerializeField] TMP_Text roomNameText;
+    [SerializeField] TMP_Text playerCountText;
     [SerializeField] Transform roomListContent;
     [SerializeField] GameObject roomListItemPrefab;    
     [SerializeField] Transform playerListContent;
@@ -25,6 +28,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject startGameButton;
     [SerializeField] TMP_InputField usernameInput;
     [SerializeField] GameObject cancelButton;
+    [SerializeField] GameObject leaveRoomButton;
+    private Hashtable gameMode;
 
     private void Awake()
     {
@@ -34,6 +39,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // connect to Photon server when exe launches
     void Start()
     {
+
         Debug.Log("Connecting to server");
         PhotonNetwork.GameVersion = "0.0.1";
         PhotonNetwork.ConnectUsingSettings();
@@ -106,7 +112,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             createRoomErrorText.text = "Invalid room name";
             return;
         }
-        PhotonNetwork.CreateRoom(roomNameInput.text);
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 8;
+        PhotonNetwork.CreateRoom(roomNameInput.text,roomOptions);
         loadingPanel.SetActive(true);
         createRoomPanel.SetActive(false);
     }
@@ -117,9 +125,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined Room");
         loadingPanel.SetActive(false);
         lobbyPanel.SetActive(true);
-
         // display room name
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
+        playerCountText.text = PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
         // get player list
         Player[] players = PhotonNetwork.PlayerList;
 
@@ -134,7 +142,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
         // display start game button only for room leader
-        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        startGameButton.SetActive(PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount <= 8);
     }
 
     // display start game button for new room leader is changed
@@ -172,10 +180,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Disconnecting server");
         PhotonNetwork.Disconnect();
-        Application.Quit();
         if(!PhotonNetwork.IsConnected)
         {
             Debug.Log("Disconnected from server");
+            Application.Quit();
         }    
     }
 
@@ -199,9 +207,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // toggle of UI when joining room
     public void joinRoom(RoomInfo info)
     {
-        PhotonNetwork.JoinRoom(info.Name);
-        findRoomPanel.SetActive(false);
-        loadingPanel.SetActive(true);
+        // cannot join when room is at max players
+        if (info.PlayerCount != info.MaxPlayers)
+        {
+            PhotonNetwork.JoinRoom(info.Name);
+            findRoomPanel.SetActive(false);
+            loadingPanel.SetActive(true);
+        }
     }
 
     // display player name is player list
@@ -213,11 +225,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // change of scene when start game is pressed
     public void startGame()
     {
-        // based on order in build settings (game scene is at index 1)
-        PhotonNetwork.LoadLevel(1);
+        lobbyPanel.SetActive(false);
+        gameModePanel.SetActive(true);
+        leaveRoomButton.SetActive(false);
     }
 
-    // change username
+    // change username and set in Photon Network and Player Prefs
     public void changeUsername()
     {
         if (string.IsNullOrEmpty(usernameInput.text))
@@ -227,6 +240,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = usernameInput.text;
         PlayerPrefs.SetString("username", usernameInput.text);
         Debug.Log("Change name success");
+    }
+
+    // room leader chooses game mode and updates the information to all players
+    public void chooseGameMode(bool bSingle)
+    {
+        // update game mode based on button clicked
+        gameMode = new Hashtable()
+        {
+                    { "Mode" ,bSingle}
+        };
+
+        // updates player properties of all players in room to game mode selected
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; ++i)
+        {
+            PhotonNetwork.PlayerList[i].SetCustomProperties(gameMode);
+        }
+    }
+
+    // load level only when player properties are updated
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        Debug.Log("Updated");
+        // based on order in build settings (game scene is at index 1)
+        PhotonNetwork.LoadLevel(1);
     }
 
 }

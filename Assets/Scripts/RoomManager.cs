@@ -86,7 +86,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","PlayerManager"),Vector3.zero,Quaternion.identity);
 
             //can i move this line to inside the player manager script?/この行をプレーヤーマネージャースクリプト内に移動できますか？
-            PhotonNetwork.Instantiate(Path.Combine("human()"), Vector3.zero, Quaternion.identity);
+            Vector3 startPos = new Vector3(Random.Range(-5, 5), 3, Random.Range(-5, 5));
+            PhotonNetwork.Instantiate(Path.Combine("human()"), startPos, Quaternion.identity);
         }
     }
 

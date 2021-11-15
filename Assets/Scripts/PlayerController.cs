@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
         if (photonView.IsMine)
         {
             horizontal = Input.GetAxis("Horizontal");

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: 086400e5e7146964987bb52abed69898
   - enabled: 1
+    path: Assets/Scenes/TestNiigawa.unity
+    guid: 5b32ea588ef26f14bbfa9496af6cc2b9
+  - enabled: 1
     path: Assets/Scenes/PlayScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public float speed = 3f;
     public float jumpPower = 3f;
+    public Vector3 localGravity = new Vector3(0.0f, -9.8f, 0.0f);
 
     private Rigidbody rb;
     private float horizontal, vertical;
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         //Rigidbody‚ğæ“¾‚µC‰ñ“]‚µ‚È‚¢‚æ‚¤‚ÉŒÅ’è
         rb = GetComponent<Rigidbody>();
         //rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        rb.useGravity = false;
     }
 
     // Update is called once per frame
@@ -39,30 +42,38 @@ public class PlayerController : MonoBehaviourPunCallbacks
             // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Æ‰E˜r‚Ì‰ñ“]Šp‚ğ“¯Šú
             rightarm.transform.localEulerAngles = new Vector3(cameraRotateX * -1 + 90, -90.0f, -90.0f);
 
-
             // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
             float cameraRotateY = Camera.main.transform.localEulerAngles.y;
 
             // ƒJƒƒ‰‚Ì‰ñ“]Šp‚ÆƒvƒŒƒCƒ„[‚Ì‰ñ“]Šp‚ğ“¯Šú
             this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
 
-            //ˆÚ“®ˆ—
-            if (horizontal != 0 || vertical != 0)
-            {
-                moveDirection = speed * new Vector3(vertical, 0, -horizontal);
-                moveDirection = transform.TransformDirection(moveDirection);
-                //rb.velocity = moveDirection;
-                rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
-            }
-
             if (isGround == true)//’…’n‚µ‚Ä‚¢‚é‚Æ‚«
             {
-                if (Input.GetKeyDown("space"))
+                if (Input.GetAxis("Jump") != 0.0f)
                 {
                     isGround = false;//  isGround‚ğfalse‚É‚·‚é
                     rb.AddForce(new Vector3(0, jumpPower, 0)); //ã‚ÉŒü‚©‚Á‚Ä—Í‚ğ‰Á‚¦‚é
                 }
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        SetLocalGravity();
+
+        //ˆÚ“®ˆ—
+        if (horizontal != 0 || vertical != 0)
+        {
+            moveDirection = speed * new Vector3(vertical, 0, -horizontal);
+            moveDirection = transform.TransformDirection(moveDirection);
+            //rb.velocity = moveDirection;
+            rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
+        }
+        else if(isGround == true)
+        {
+            StopMove();
         }
     }
 
@@ -72,5 +83,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             isGround = true; //isGround‚ğtrue‚É‚·‚é
         }
+    }
+
+    void SetLocalGravity()
+    {
+        rb.AddForce(localGravity, ForceMode.Acceleration);
+    }
+
+    void StopMove()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 }

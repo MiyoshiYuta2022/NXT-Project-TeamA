@@ -51,6 +51,8 @@ public class PlayerManager : MonoBehaviour
         //{
         //    createPlayerController();
         //}
+        //createPlayerController();
+
     }
 
     // Update is called once per frame
@@ -61,6 +63,7 @@ public class PlayerManager : MonoBehaviour
 
     void createPlayerController()
     {
-        PhotonNetwork.Instantiate(Path.Combine("human()"), Vector3.zero, Quaternion.identity);
+        Vector3 startPos = new Vector3(Random.Range(-5, 5), 3, Random.Range(-5, 5));
+        PhotonNetwork.Instantiate(Path.Combine("human()"), startPos, Quaternion.identity);
     }
 }

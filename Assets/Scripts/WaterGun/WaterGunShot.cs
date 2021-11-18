@@ -42,10 +42,10 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
             //発射間隔待ち時間が0を下回ったら
             if (m_FireInterval <= 0)
             {
-                //マウスを左クリックしている間
-                if (Input.GetMouseButton(0))
+                //マウスを左クリックしている間 または　RBを押している間
+                if (Input.GetMouseButton(0) || Input.GetKey("joystick button 5"))
                 {
-                    photonView.RPC(nameof(GunShot), RpcTarget.All);                    
+                    photonView.RPC(nameof(GunShot), RpcTarget.All);
                 }
             }
             else

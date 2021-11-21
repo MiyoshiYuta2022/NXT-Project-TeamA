@@ -95,4 +95,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
+
+    public void OnJump()
+    {
+        if (isGround==true)
+        {
+            isGround = false;
+            rb.AddForce(new Vector3(0, jumpPower, 0));
+        }
+    }
 }

@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         rb.angularVelocity = Vector3.zero;
     }
 
+    // Jump for new input system as old one is not working 
     public void OnJump()
     {
         if (isGround==true)

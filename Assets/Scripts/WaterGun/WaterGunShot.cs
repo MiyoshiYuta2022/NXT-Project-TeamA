@@ -10,7 +10,7 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     public GameObject Water;
 
     //発射間隔
-    const float INTERVAL = 10;
+    public float INTERVAL = 5.5f;
 
     //発射間隔待ち時間
     float m_FireInterval = 0;
@@ -37,15 +37,19 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        
+    }
+    private void FixedUpdate()
+    {
         if (photonView.IsMine)
         {
             //発射間隔待ち時間が0を下回ったら
             if (m_FireInterval <= 0)
             {
-                //マウスを左クリックしている間
-                if (Input.GetMouseButton(0))
+                //マウスを左クリックしている間 または　RBを押している間
+                if (Input.GetMouseButton(0) || Input.GetKey("joystick button 5"))
                 {
-                    photonView.RPC(nameof(GunShot), RpcTarget.All);                    
+                    photonView.RPC(nameof(GunShot), RpcTarget.All);
                 }
             }
             else
@@ -53,7 +57,7 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
                 //インターバルを減らす
                 m_FireInterval -= Time.deltaTime;
             }
-            
+
         }
     }
 

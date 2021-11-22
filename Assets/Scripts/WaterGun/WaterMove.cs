@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaterMove : MonoBehaviour
 {
     //ˆÚ“®‘¬“x
-    const float SPEED = 20f;
+    const float SPEED = 40f;
 
     //Á‚¦‚é‚Ü‚Å‚ÌŠÔ
     const float DESTROY_TIME = 10;

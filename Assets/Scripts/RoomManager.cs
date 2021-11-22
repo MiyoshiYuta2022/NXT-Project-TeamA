@@ -53,9 +53,8 @@ namespace gameMode
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-
     public static RoomManager instance;
-    private bool gamemode;
+    //add timer
     private void Awake()
     {
         if(instance)
@@ -83,10 +82,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if(scene.buildIndex==1) // in first game/level scene
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs","PlayerManager"),Vector3.zero,Quaternion.identity);
-
-            //can i move this line to inside the player manager script?/この行をプレーヤーマネージャースクリプト内に移動できますか？
-            Vector3 startPos = new Vector3(Random.Range(-5, 5), 3, Random.Range(-5, 5));
+            Vector3 startPos = new Vector3(Random.Range(-10f,10f), 4.22f, Random.Range(-10f, 10f));
             PhotonNetwork.Instantiate(Path.Combine("human()"), startPos, Quaternion.identity);
         }
     }

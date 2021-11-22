@@ -250,7 +250,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
                     { "Mode" ,bSingle}
         };
-
+        PhotonNetwork.MasterClient.SetCustomProperties(gameMode);
         // updates player properties of all players in room to game mode selected
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; ++i)
         {

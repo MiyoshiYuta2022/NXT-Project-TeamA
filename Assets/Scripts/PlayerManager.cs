@@ -23,10 +23,8 @@ public class PlayerManager : MonoBehaviour
     {
         // ViewIDs are usually 1001, 2001, etc so this will return a int from 0 to 7
         int playerNum = photonView.ViewID / 1000 - 1;
-        Debug.Log(photonView.ViewID + " " + (photonView.ViewID / 1000 - 1) + " " + CGameColors.getDefColor(photonView.ViewID / 1000 - 1));
-        // returns gameMode selected from player properties
-        bool gameMode = (bool)photonView.Owner.CustomProperties["Mode"];
-
+        // returns gameMode selected from player properties (master client as others are null)
+        bool gameMode = (bool)PhotonNetwork.MasterClient.CustomProperties["Mode"];
         //true - single mode, false - team mode
         if (gameMode)
         {
@@ -47,23 +45,11 @@ public class PlayerManager : MonoBehaviour
                 playerColor = CGameColors.getDefColor(default);
         }
 
-        //if (photonView.IsMine)
-        //{
-        //    createPlayerController();
-        //}
-        //createPlayerController();
-
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    void createPlayerController()
-    {
-        Vector3 startPos = new Vector3(Random.Range(-5, 5), 3, Random.Range(-5, 5));
-        PhotonNetwork.Instantiate(Path.Combine("human()"), startPos, Quaternion.identity);
     }
 }

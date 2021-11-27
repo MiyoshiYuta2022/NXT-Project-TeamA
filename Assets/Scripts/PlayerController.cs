@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Vector3 moveDirection = Vector3.zero;
     private bool isGround;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     isGround = false;//  isGroundÇfalseÇ…Ç∑ÇÈ
                     rb.AddForce(new Vector3(0, jumpPower, 0)); //è„Ç…å¸Ç©Ç¡ÇƒóÕÇâ¡Ç¶ÇÈ
                 }
+
             }
         }
     }
@@ -104,5 +106,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
             isGround = false;
             rb.AddForce(new Vector3(0, jumpPower, 0));
         }
-    }
-}
+    } 
+
+
+}    
+
+

@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Water: {fileID: 8903203897498336005, guid: b30fa27e9c299f84b83ff2cb4df9566f, type: 3}
+  waterBomb: {fileID: 5837206619366286869, guid: d543b1d8491e6324087f758181b0b1bb, type: 3}
 --- !u!33 &5834530054157221778
 MeshFilter:
   m_ObjectHideFlags: 0

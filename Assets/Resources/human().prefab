@@ -440,8 +440,6 @@ GameObject:
   - component: {fileID: 5017111023520669060}
   - component: {fileID: 4680014220398374492}
   - component: {fileID: -4696331641156644837}
-  - component: {fileID: -365238345142475947}
-  - component: {fileID: -8210659220715731746}
   - component: {fileID: -1886315584057979104}
   m_Layer: 0
   m_Name: human()
@@ -468,6 +466,7 @@ Transform:
   - {fileID: 5558167560226324148}
   - {fileID: 5558167561737017129}
   - {fileID: 5379596551932701695}
+  - {fileID: 1276987045943896224}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -553,40 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09661b005c231ed4ab06c26ba727258e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-365238345142475947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5558167561568068050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!114 &-8210659220715731746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5558167561568068050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &-1886315584057979104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,6 +645,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3cd2d315-405c-402c-879d-d73b7b9a867f
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b2de0f95-17f9-4473-80d6-0382069495e6
+    m_ActionName: Player/ThrowBomb[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -876,6 +845,92 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6171919090036483898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276987045943896224}
+  - component: {fileID: 5896212784044697489}
+  - component: {fileID: 5541563705443122739}
+  - component: {fileID: 5245612125375208489}
+  m_Layer: 0
+  m_Name: launch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276987045943896224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171919090036483898}
+  m_LocalRotation: {x: -0.18622062, y: 0.68214506, z: 0.18622065, w: 0.68214506}
+  m_LocalPosition: {x: 0.389, y: 3.399, z: 0.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5558167561568068049}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: -30.539, y: 90, z: 0}
+--- !u!114 &5896212784044697489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171919090036483898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1975ace09454958479c5d9d1ff370d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterBomb: {fileID: 5837206619366286869, guid: d543b1d8491e6324087f758181b0b1bb, type: 3}
+  bombCount: 0
+--- !u!114 &5541563705443122739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171919090036483898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 5245612125375208489}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &5245612125375208489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171919090036483898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &2503048180417544115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -887,6 +942,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGun
       objectReference: {fileID: 0}
+    - target: {fileID: 1331858139927228562, guid: 2d4440004e77c2e4b97652872ccab0c4, type: 3}
+      propertyPath: Water
+      value: 
+      objectReference: {fileID: 8903203897498336005, guid: b30fa27e9c299f84b83ff2cb4df9566f, type: 3}
     - target: {fileID: 7370584630170911767, guid: 2d4440004e77c2e4b97652872ccab0c4, type: 3}
       propertyPath: m_RootOrder
       value: 0

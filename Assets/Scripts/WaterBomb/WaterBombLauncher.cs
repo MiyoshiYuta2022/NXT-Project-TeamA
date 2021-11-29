@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 public class WaterBombLauncher : MonoBehaviourPunCallbacks
 {
     const float INTERVAL = 200;
@@ -23,10 +24,14 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
 
     public int bombCount;
 
+    public TMP_Text bombCountText;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        bombCount = 10;
+        bombCount = GetComponentInParent<PlayerManager>().bombCount;
+        bombCountText.text = "Bomb Count: " + bombCount.ToString();
     }
 
     // Update is called once per frame
@@ -95,5 +100,6 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
         this.gameObject.transform.rotation = keeprotation;
 
         bombCount--;
+        bombCountText.text = "Bomb Count: " + bombCount.ToString();
     }
 }

@@ -5,6 +5,7 @@ using gameMode;
 using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
+using TMPro;
 // For player data, respawn/death, receiving other players info
 // Attached on game object that is instantiated when player enters game scene - done
 
@@ -12,6 +13,10 @@ public class PlayerManager : MonoBehaviour
 {
     private PhotonView photonView;
     private Color playerColor;
+    public int bombCount;
+    public GameObject playerUI;
+    private float survivalTime;
+    private bool bFreeze;
 
     private void Awake()
     {
@@ -21,8 +26,9 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ViewIDs are usually 1001, 2001, etc so this will return a int from 0 to 7
-        int playerNum = photonView.ViewID / 1000 - 1;
+       
+        int playerNum = photonView.OwnerActorNr;
+
         // returns gameMode selected from player properties (master client as others are null)
         bool gameMode = (bool)PhotonNetwork.MasterClient.CustomProperties["Mode"];
         //true - single mode, false - team mode
@@ -44,12 +50,42 @@ public class PlayerManager : MonoBehaviour
             else
                 playerColor = CGameColors.getDefColor(default);
         }
+        bombCount = 10;
+        bFreeze = false;
 
+        if (photonView.IsMine)
+            playerUI.SetActive(true);
+            
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "ColdWater")
+        {
+            playerUI.transform.GetChild(0).gameObject.SetActive(true);
+            bFreeze = true;
+            survivalTime = 5;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "ColdWater")
+        {
+            playerUI.transform.GetChild(0).gameObject.SetActive(false);
+            bFreeze = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (bFreeze)
+        {
+            survivalTime -= Time.deltaTime;
+            TMP_Text cntdownText = playerUI.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TMP_Text>();
+            cntdownText.text = survivalTime.ToString("#.00");
+        }
     }
 }

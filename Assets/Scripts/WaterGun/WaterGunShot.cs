@@ -28,8 +28,6 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     //Á”ï‚·‚é…‚Ì—Ê
     const float WATER_COST = 2;
 
-    public GameObject waterBomb;
-
     // Start is called before the first frame update
     void Start()
     {

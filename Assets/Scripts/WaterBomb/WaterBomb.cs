@@ -64,6 +64,8 @@ public class WaterBomb : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        //create water particles when bomb explodes
         Instantiate(waterpart, transform.position, transform.rotation);
     }
 

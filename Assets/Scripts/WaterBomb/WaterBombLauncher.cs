@@ -99,6 +99,7 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
         //‰ñ“]Šp‚ð–ß‚·
         this.gameObject.transform.rotation = keeprotation;
 
+        //Update bomb count in UI
         bombCount--;
         bombCountText.text = "Bomb Count: " + bombCount.ToString();
     }

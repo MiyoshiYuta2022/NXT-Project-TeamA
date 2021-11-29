@@ -53,12 +53,14 @@ public class PlayerManager : MonoBehaviour
         bombCount = 10;
         bFreeze = false;
 
+        // display only player UI
         if (photonView.IsMine)
             playerUI.SetActive(true);
             
 
     }
 
+    // for interaction with cold water
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ColdWater")
@@ -81,6 +83,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //start countdown when interact with cold water
         if (bFreeze)
         {
             survivalTime -= Time.deltaTime;

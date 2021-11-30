@@ -6,7 +6,9 @@ TagManager:
   tags:
   - Water
   - Ground
+  - ColdWater
   - WaterSource
+  - WaterBomb
   layers:
   - Default
   - TransparentFX

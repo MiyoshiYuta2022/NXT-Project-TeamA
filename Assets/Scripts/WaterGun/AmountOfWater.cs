@@ -9,9 +9,6 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
     //水の量
     int m_AmountOfWater;
 
-    //水のボトルの数
-    int m_BottleNum = 0;
-
     //水の量最大
     public const int AMOUNT_OF_WATER = 100;
 
@@ -25,25 +22,14 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (photonView.IsMine)
         {
-            //ボトルに当たったら
-            if (other.gameObject.tag == "Bottle")
-            {
-                //持っているボトルの数を増やす
-                m_BottleNum++;
-
-                //当たったオブジェクトを消す
-                Destroy(other.gameObject);
-            }
         }
-    }
-    
+    }    
 
     //水の量取得
     public int GetAmountOfWater()
@@ -55,6 +41,12 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
     public void DownAmountOfWater(int cost)
     {
         m_AmountOfWater -= cost;
+    }
+
+    //水のリロード
+    public void WaterReload()
+    {
+        m_AmountOfWater = AMOUNT_OF_WATER;
     }
 }
     

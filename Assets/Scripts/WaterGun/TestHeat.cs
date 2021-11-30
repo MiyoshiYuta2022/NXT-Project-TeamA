@@ -39,6 +39,8 @@ public class TestHeat : MonoBehaviourPunCallbacks
                     {
                         photonView.RPC(nameof(Change), RpcTarget.All);
                         Debug.Log("Change");
+                        GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
+                        GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
                     }
                     break;
                 }
@@ -50,6 +52,8 @@ public class TestHeat : MonoBehaviourPunCallbacks
                     //ïœÇ¶ÇÈÅiâºÅj
                     photonView.RPC(nameof(Change2), RpcTarget.All);
                     Debug.Log("Dawn");
+                    GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
+                    GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
                     break;
                 }
             case PLAYER_STATE.DEATH:

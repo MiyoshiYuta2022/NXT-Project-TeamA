@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float horizontal, vertical;
     private Vector3 moveDirection = Vector3.zero;
     private bool isGround;
+    private bool jumpFlag = false;
+    private TestHeat.PLAYER_STATE playerState = TestHeat.PLAYER_STATE.ARIVE;
 
     // Start is called before the first frame update
     void Start()
@@ -48,32 +50,44 @@ public class PlayerController : MonoBehaviourPunCallbacks
             // カメラの回転角とプレイヤーの回転角を同期
             this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
 
-            if (isGround == true)//着地しているとき
+            if (Input.GetAxisRaw("Jump") != 0.0f && playerState == TestHeat.PLAYER_STATE.ARIVE)
             {
-                if (Input.GetAxis("Jump") != 0.0f)
-                {
-                    isGround = false;//  isGroundをfalseにする
-                    rb.AddForce(new Vector3(0, jumpPower, 0)); //上に向かって力を加える
-                }
+                 jumpFlag = true;
             }
         }
     }
 
     private void FixedUpdate()
     {
-        SetLocalGravity();
+        if (photonView.IsMine)
+        {
+            SetLocalGravity();
 
-        //移動処理
-        if (horizontal != 0 || vertical != 0)
-        {
-            moveDirection = speed * new Vector3(vertical, 0, -horizontal);
-            moveDirection = transform.TransformDirection(moveDirection);
-            //rb.velocity = moveDirection;
-            rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
-        }
-        else if(isGround == true)
-        {
-            StopMove();
+            //移動処理
+            if (horizontal != 0 || vertical != 0)
+            {
+                if (playerState == TestHeat.PLAYER_STATE.ARIVE)
+                {
+                    // Rigidbodyでの移動(キーを離した後若干動く)
+                    //moveDirection = speed * new Vector3(vertical, 0.0f, -horizontal).normalized;
+                    //moveDirection = transform.TransformDirection(moveDirection);
+                    //rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
+
+                    moveDirection = new Vector3(vertical, 0.0f, -horizontal).normalized;
+                    transform.Translate(moveDirection.x / speed, 0.0f, moveDirection.z / speed);
+                }
+            }
+            else if (isGround == true)
+            {
+                StopMove();
+            }
+
+            // ジャンプ処理
+            if (jumpFlag == true)//着地しているとき
+            {
+                jumpFlag = false;
+                OnJump();
+            }
         }
     }
 
@@ -97,12 +111,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     // Jump for new input system as old one is not working 
-    public void OnJump()
+    private void OnJump()
     {
-        if (isGround==true)
+        if (playerState == TestHeat.PLAYER_STATE.ARIVE)
         {
-            isGround = false;
-            rb.AddForce(new Vector3(0, jumpPower, 0));
+            if (isGround == true)
+            {
+                isGround = false;
+                rb.AddForce(new Vector3(0, jumpPower, 0));
+            }
         }
     }
+
+    public void SetPlayerState(TestHeat.PLAYER_STATE nowState)
+    {
+        playerState = nowState;
+    }
+
 }

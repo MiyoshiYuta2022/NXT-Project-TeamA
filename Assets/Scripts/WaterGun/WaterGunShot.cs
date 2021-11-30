@@ -28,9 +28,13 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     //消費する水の量
     const int WATER_COST = 2;
 
+    //エフェクト
+    public GameObject m_Effect;
+
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+        m_Effect.SetActive(false);
     }
 
     // Update is called once per frame
@@ -56,13 +60,23 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
                         //撃つ
                         photonView.RPC(nameof(GunShot), RpcTarget.All);
 
+                        //エフェクト表示
+                        m_Effect.SetActive(true);
+
                         //水を減らす
                         amountOfWater.DownAmountOfWater(WATER_COST);
                     }
                     else
                     {
+                        //エフェクト非表示
+                        m_Effect.SetActive(false);
                         Debug.Log("Norn Water");
                     }
+                }
+                else
+                {
+                    //エフェクト非表示
+                    m_Effect.SetActive(false);
                 }
             }
             else

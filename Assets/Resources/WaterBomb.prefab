@@ -4834,7 +4834,7 @@ GameObject:
   - component: {fileID: 7965863720137286907}
   m_Layer: 0
   m_Name: WaterBomb
-  m_TagString: Water
+  m_TagString: WaterBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

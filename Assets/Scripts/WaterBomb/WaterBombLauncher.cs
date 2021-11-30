@@ -9,16 +9,9 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
 
     //発射間隔待ち時間
     float m_FireInterval = 0;
-
-    //方向
-    const float DIRECTION_1 = -3;
-    const float DIRECTION_2 = 5;
-
-    //方向のカウント
-    float m_DirectionCount = 0;
-
+   
     //水の威力
-    int m_WaterPower = 2;
+    int m_WaterPower = 10;
 
     public GameObject waterBomb;
 
@@ -53,7 +46,6 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
                 //インターバルを減らす
                 m_FireInterval -= Time.deltaTime;
             }
-
         }
     }
 
@@ -64,26 +56,6 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
         Vector3 pos = this.gameObject.transform.position;
         //自分のオブジェクト
         GameObject myobject = this.gameObject;
-        //回転角度
-        Quaternion keeprotation = this.gameObject.transform.rotation;
-
-        //発射パターン
-        if (m_DirectionCount == 10)
-        {
-            myobject.transform.Rotate(0, DIRECTION_1, 0);
-            m_DirectionCount = 0;
-        }
-        else if (m_DirectionCount == 6 || m_DirectionCount == 8)
-        {
-            myobject.transform.Rotate(0, DIRECTION_2, 0);
-            m_DirectionCount++;
-        }
-        else
-        {
-            myobject.transform.Rotate(0, 0, 0);
-            m_DirectionCount++;
-        }
-
 
         // Cubeプレハブを元に、インスタンスを生成、
         GameObject bomb = Instantiate(waterBomb, new Vector3(pos.x, pos.y, pos.z), myobject.transform.rotation);
@@ -95,9 +67,6 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
         bomb.GetComponent<WaterBomb>().SetWaterPower(m_WaterPower);
 
         m_FireInterval = INTERVAL * Time.deltaTime;
-
-        //回転角を戻す
-        this.gameObject.transform.rotation = keeprotation;
 
         //Update bomb count in UI
         bombCount--;

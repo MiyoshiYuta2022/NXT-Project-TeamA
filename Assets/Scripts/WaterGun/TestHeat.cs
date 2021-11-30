@@ -77,6 +77,15 @@ public class TestHeat : MonoBehaviourPunCallbacks
                 photonView.RPC(nameof(HpDowm), RpcTarget.All,power);
             }
         }
+        if (other.gameObject.tag == "WaterBomb")
+        {
+            //é©ï™ÇÃêÖÇ∂Ç·Ç»Ç©Ç¡ÇΩÇÁèàóùÇ∑ÇÈ
+            if (other.GetComponent<WaterBomb>().GetOwnerId() != photonView.OwnerActorNr)
+            {
+                int power = other.GetComponent<WaterBomb>().GetWaterPower();
+                photonView.RPC(nameof(HpDowm), RpcTarget.All, power);
+            }
+        }
 
     }
 

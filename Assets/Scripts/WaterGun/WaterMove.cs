@@ -17,7 +17,7 @@ public class WaterMove : MonoBehaviour
     int m_WaterPower = 1;
 
     //o‚µ‚½l‚ÌID
-    public int m_OwnerId;
+    [SerializeField] int m_OwnerId;
 
     //ID‚ğİ’è
     public void Init(int ownerId)

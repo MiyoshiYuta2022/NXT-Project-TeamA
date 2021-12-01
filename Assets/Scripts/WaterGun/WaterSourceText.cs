@@ -6,12 +6,12 @@ using Photon.Pun;
 
 public class WaterSourceText : MonoBehaviourPunCallbacks
 {
-    public GameObject m_Text;
+    [SerializeField] GameObject m_RelodeText;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Text.SetActive(false);
+        m_RelodeText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class WaterSourceText : MonoBehaviourPunCallbacks
         {
             if (other.tag == "WaterSource")
             {
-                m_Text.SetActive(true);
+                m_RelodeText.SetActive(true);
             }
         }
     }
@@ -37,7 +37,7 @@ public class WaterSourceText : MonoBehaviourPunCallbacks
         {
             if (other.tag == "WaterSource")
             {
-                m_Text.SetActive(false);
+                m_RelodeText.SetActive(false);
             }
         }
     }    

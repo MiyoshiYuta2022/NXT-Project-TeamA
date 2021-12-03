@@ -17,14 +17,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool jumpFlag = false;
     private TestHeat.PLAYER_STATE playerState = TestHeat.PLAYER_STATE.ARIVE;
 
+    private GameObject SettingUIManagerObj;
+    private SettingUIManager SettingUIManagerScript;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Rigidbody‚ğæ“¾‚µC‰ñ“]‚µ‚È‚¢‚æ‚¤‚ÉŒÅ’è
+        //Rigidbodyã‚’å–å¾—ã—ï¼Œå›è»¢ã—ãªã„ã‚ˆã†ã«å›ºå®š
         rb = GetComponent<Rigidbody>();
         //rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         rb.useGravity = false;
+
+        SettingUIManagerObj = GameObject.Find("SettingUIManager");
+        SettingUIManagerScript = SettingUIManagerObj.GetComponent<SettingUIManager>();
     }
 
     // Update is called once per frame
@@ -32,27 +38,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+            horizontal = 0.0f;
+            vertical = 0.0f;
+            if (SettingUIManagerScript.GetMenuMode() == false)
+            {
+                horizontal = Input.GetAxis("Horizontal");
+                vertical = Input.GetAxis("Vertical");
+            }
 
-            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
+            // ã‚«ãƒ¡ãƒ©ã®å›è»¢è§’ã®å–å¾—
             float cameraRotateX = Camera.main.transform.localEulerAngles.x;
 
-            //‰E˜r‚ÌƒIƒuƒWƒFƒNƒgæ“¾
+            //å³è…•ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—
             GameObject rightarm = transform.Find("RightArm").gameObject;
 
-            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Æ‰E˜r‚Ì‰ñ“]Šp‚ğ“¯Šú
+            // ã‚«ãƒ¡ãƒ©ã®å›è»¢è§’ã¨å³è…•ã®å›è»¢è§’ã‚’åŒæœŸ
             rightarm.transform.localEulerAngles = new Vector3(cameraRotateX * -1 + 90, -90.0f, -90.0f);
 
-            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚Ìæ“¾
+            // ã‚«ãƒ¡ãƒ©ã®å›è»¢è§’ã®å–å¾—
             float cameraRotateY = Camera.main.transform.localEulerAngles.y;
 
-            // ƒJƒƒ‰‚Ì‰ñ“]Šp‚ÆƒvƒŒƒCƒ„[‚Ì‰ñ“]Šp‚ğ“¯Šú
+            // ã‚«ãƒ¡ãƒ©ã®å›è»¢è§’ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å›è»¢è§’ã‚’åŒæœŸ
             this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
 
+            //ã‚¸ãƒ£ãƒ³ãƒ—ãŒæŠ¼ã•ã‚ŒãŸ & ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿãã¦ã„ã‚‹ãªã‚‰
             if (Input.GetAxisRaw("Jump") != 0.0f && playerState == TestHeat.PLAYER_STATE.ARIVE)
             {
-                 jumpFlag = true;
+                if (SettingUIManagerScript.GetMenuMode() == false)
+                {
+                    jumpFlag = true;
+                }
             }
         }
     }
@@ -63,12 +78,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             SetLocalGravity();
 
-            //ˆÚ“®ˆ—
+            //ç§»å‹•å‡¦ç†
             if (horizontal != 0 || vertical != 0)
             {
                 if (playerState == TestHeat.PLAYER_STATE.ARIVE)
                 {
-                    // Rigidbody‚Å‚ÌˆÚ“®(ƒL[‚ğ—£‚µ‚½ŒãáŠ±“®‚­)
+                    // Rigidbodyã§ã®ç§»å‹•(ã‚­ãƒ¼ã‚’é›¢ã—ãŸå¾Œè‹¥å¹²å‹•ã)
                     //moveDirection = speed * new Vector3(vertical, 0.0f, -horizontal).normalized;
                     //moveDirection = transform.TransformDirection(moveDirection);
                     //rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
@@ -82,8 +97,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 StopMove();
             }
 
-            // ƒWƒƒƒ“ƒvˆ—
-            if (jumpFlag == true)//’…’n‚µ‚Ä‚¢‚é‚Æ‚«
+            // ã‚¸ãƒ£ãƒ³ãƒ—å‡¦ç†
+            if (jumpFlag == true)//ç€åœ°ã—ã¦ã„ã‚‹ã¨ã
             {
                 jumpFlag = false;
                 OnJump();
@@ -91,11 +106,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    void OnCollisionEnter(Collision other) //’n–Ê‚ÉG‚ê‚½‚Ìˆ—
+    void OnCollisionEnter(Collision other) //åœ°é¢ã«è§¦ã‚ŒãŸæ™‚ã®å‡¦ç†
     {
-        if (other.gameObject.tag == "Ground") //Groundƒ^ƒO‚ÌƒIƒuƒWƒFƒNƒg‚ÉG‚ê‚½‚Æ‚«
+        if (other.gameObject.tag == "Ground") //Groundã‚¿ã‚°ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«è§¦ã‚ŒãŸã¨ã
         {
-            isGround = true; //isGround‚ğtrue‚É‚·‚é
+            isGround = true; //isGroundã‚’trueã«ã™ã‚‹
         }
     }
 
@@ -115,10 +130,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (playerState == TestHeat.PLAYER_STATE.ARIVE)
         {
-            if (isGround == true)
+            if (SettingUIManagerScript.GetMenuMode() == false)
             {
-                isGround = false;
-                rb.AddForce(new Vector3(0, jumpPower, 0));
+                if (isGround == true)
+                {
+                    isGround = false;
+                    rb.AddForce(new Vector3(0, jumpPower, 0));
+                }
             }
         }
     }
@@ -128,4 +146,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         playerState = nowState;
     }
 
-}
+
+
+}    
+
+

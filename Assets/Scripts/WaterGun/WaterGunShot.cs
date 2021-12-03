@@ -26,18 +26,20 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     int m_WaterPower = 5;
 
     //消費する水の量
-    const float WATER_COST = 2;
+    const int WATER_COST = 2;
+
+    //エフェクト
+    public GameObject m_Effect;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_Effect.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {        
     }
     private void FixedUpdate()
     {
@@ -49,7 +51,32 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
                 //マウスを左クリックしている間 または　RBを押している間
                 if (Input.GetMouseButton(0) || Input.GetKey("joystick button 5"))
                 {
-                    photonView.RPC(nameof(GunShot), RpcTarget.All);
+                    //水の量を取得
+                    AmountOfWater amountOfWater = gameObject.GetComponent<AmountOfWater>();
+                    int check = amountOfWater.GetAmountOfWater();
+
+                    if (check > 0)
+                    {
+                        //撃つ
+                        photonView.RPC(nameof(GunShot), RpcTarget.All);
+
+                        //エフェクト表示
+                        m_Effect.SetActive(true);
+
+                        //水を減らす
+                        amountOfWater.DownAmountOfWater(WATER_COST);
+                    }
+                    else
+                    {
+                        //エフェクト非表示
+                        m_Effect.SetActive(false);
+                        Debug.Log("Norn Water");
+                    }
+                }
+                else
+                {
+                    //エフェクト非表示
+                    m_Effect.SetActive(false);
                 }
             }
             else

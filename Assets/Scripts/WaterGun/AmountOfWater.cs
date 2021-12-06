@@ -11,14 +11,16 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
     int m_AmountOfWater;
 
     //水の量最大
-    [SerializeField] const int AMOUNT_OF_WATER = 100;
+    const int AMOUNT_OF_WATER = 100;
 
     //水がないときテキスト
-    [SerializeField] GameObject m_NornWaterText;
+    GameObject m_NornWaterText;
 
     //水の量UI
-    [SerializeField] Slider m_WaterSlider;
-    [SerializeField] GameObject m_WaterSliderObj;
+    Slider m_WaterSlider;
+    GameObject m_WaterSliderObj;
+    Slider m_RedWaterSlider;
+    GameObject m_RedWaterSliderObj;
 
 
     // Start is called before the first frame update
@@ -27,7 +29,14 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
         //最初の水の量を設定
         m_AmountOfWater = AMOUNT_OF_WATER;
 
+        m_NornWaterText = GameObject.Find("NornWaterText");
+        //表示しない状態にしておく
         m_NornWaterText.SetActive(false);
+
+        m_WaterSlider = GameObject.Find("WaterSlider").GetComponent<Slider>();
+        m_WaterSliderObj = GameObject.Find("WaterSlider");
+        m_RedWaterSlider = GameObject.Find("RedWaterSlider").GetComponent<Slider>();
+        m_RedWaterSliderObj = GameObject.Find("RedWaterSlider");
     }
 
     // Update is called once per frame
@@ -36,7 +45,9 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             m_WaterSliderObj.SetActive(true);
-            
+            m_RedWaterSliderObj.SetActive(true);
+
+
             if (m_AmountOfWater <= 0)
             {
                 m_NornWaterText.SetActive(true);
@@ -48,10 +59,6 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
 
             //水の量に応じてスライダーを動かす
             m_WaterSlider.value = m_AmountOfWater;
-        }
-        else
-        {
-            m_WaterSliderObj.SetActive(false);
         }
     }
 
@@ -71,6 +78,7 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
     public void WaterReload()
     {
         m_AmountOfWater = AMOUNT_OF_WATER;
+        m_RedWaterSlider.value = AMOUNT_OF_WATER;
     }
 }
     

@@ -22,13 +22,17 @@ public class TestHeat : MonoBehaviourPunCallbacks
     public PLAYER_STATE m_PlayerState = PLAYER_STATE.ARIVE;
 
     //体力のスライダー
-    [SerializeField] Slider m_HPSlider;
-    [SerializeField] GameObject m_HpSliderObj;
+    Slider m_HPSlider;
+    GameObject m_HpSliderObj;
+    GameObject m_RedHpSliderObj;
 
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
+        m_HPSlider = GameObject.Find("HPSlider").GetComponent<Slider>();
+        m_HpSliderObj = GameObject.Find("HPSlider");
+        m_RedHpSliderObj = GameObject.Find("RedHPSlider");
     }
 
     // Update is called once per frame
@@ -37,6 +41,8 @@ public class TestHeat : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             m_HpSliderObj.SetActive(true);
+            m_RedHpSliderObj.SetActive(true);
+
             switch (m_PlayerState)
             {
                 case PLAYER_STATE.ARIVE:
@@ -71,10 +77,6 @@ public class TestHeat : MonoBehaviourPunCallbacks
             }
 
             m_HPSlider.value = m_Hp;
-        }
-        else
-        {
-            m_HpSliderObj.SetActive(false);
         }
     }
     

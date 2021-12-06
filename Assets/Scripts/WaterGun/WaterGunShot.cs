@@ -10,7 +10,7 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     [SerializeField] GameObject Water;
 
     //”­ËŠÔŠu
-    [SerializeField] float INTERVAL = 5.5f;
+    const float INTERVAL = 5.5f;
 
     //”­ËŠÔŠu‘Ò‚¿ŠÔ
     float m_FireInterval = 0;
@@ -23,7 +23,7 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     float m_DirectionCount = 0;
 
     //…‚ÌˆĞ—Í
-    int m_WaterPower = 5;
+    int m_WaterPower = 3;
 
     //Á”ï‚·‚é…‚Ì—Ê
     const int WATER_COST = 2;

@@ -24,7 +24,7 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
     void Start()
     {
         bombCount = GetComponentInParent<PlayerManager>().bombCount;
-        bombCountText.text = "Bomb Count: " + bombCount.ToString();
+        bombCountText.text = "x " + bombCount.ToString();
     }
 
     // Update is called once per frame
@@ -70,6 +70,6 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
 
         //Update bomb count in UI
         bombCount--;
-        bombCountText.text = "Bomb Count: " + bombCount.ToString();
+        bombCountText.text = "x " + bombCount.ToString();
     }
 }

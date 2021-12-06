@@ -84,11 +84,20 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         //start countdown when interact with cold water
-        if (bFreeze)
+        if (bFreeze) 
         {
             survivalTime -= Time.deltaTime;
             TMP_Text cntdownText = playerUI.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TMP_Text>();
             cntdownText.text = survivalTime.ToString("#.00");
+            if (survivalTime < 0f)
+            {
+                Debug.Log("Dead");
+                GetComponent<TestHeat>().m_Hp = 0;
+                GetComponent<PlayerController>().SetPlayerState(TestHeat.PLAYER_STATE.DEATH);
+                GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
+                GetComponent<ReviveSystem>().SetPlayerState(TestHeat.PLAYER_STATE.DEATH);
+                return;
+            }
         }
     }
 }

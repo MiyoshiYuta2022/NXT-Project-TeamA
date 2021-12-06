@@ -18,6 +18,6 @@ public class WaterRising : MonoBehaviour
 
     void waterRise()
     {
-        transform.Translate(Vector3.up * 0.05f, Space.World);
+        transform.Translate(Vector3.up * 0.025f, Space.World);
     }
 }

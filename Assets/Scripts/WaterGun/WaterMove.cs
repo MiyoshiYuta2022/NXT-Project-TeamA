@@ -8,7 +8,7 @@ public class WaterMove : MonoBehaviour
     const float SPEED = 40f;
 
     //Á‚¦‚é‚Ü‚Å‚ÌŠÔ
-    const float DESTROY_TIME = 10;
+    const float DESTROY_TIME = 6;
 
     //Á‚¦‚éŠÔ‚ÌƒJƒEƒ“ƒg
     float m_DestroyCount = 0;

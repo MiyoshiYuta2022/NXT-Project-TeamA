@@ -19,13 +19,13 @@ public class RedHpSliderControl : MonoBehaviour
     float m_ChangeCount;
 
     //変化までの時間
-    const float CHANGE_WAIT_TIME = 2;
+    const float CHANGE_WAIT_TIME = 1;
 
     //ゲージ動かすフラグ
     bool m_SliderMoveFrag;
 
     //ゲージ動かす時間
-    const int CHANGE_FRAME = 30;
+    const int CHANGE_FRAME = 90;
 
     // Start is called before the first frame update
     void Start()

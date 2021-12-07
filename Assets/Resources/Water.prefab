@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 8903203897498336005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 3.83}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 3333461303849759525}
   m_Father: {fileID: 0}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a0a560448204b024ebc22deb6cc6bc40, type: 2}
+  - {fileID: 2100000, guid: 248b61c3a119c0440bf49eaa82a4304d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,8 +98,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.18
+  m_Center: {x: 0, y: 0.0166742, z: 0}
 --- !u!114 &6142172311924732443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8678140946734865795, guid: 57e01e8ce59daef47997f2451a0f814f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 471f79c650ee39646ad9abad13292eb4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57e01e8ce59daef47997f2451a0f814f, type: 3}
 --- !u!4 &3333461303849759525 stripped

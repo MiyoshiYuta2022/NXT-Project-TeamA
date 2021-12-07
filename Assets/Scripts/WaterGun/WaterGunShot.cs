@@ -7,10 +7,10 @@ using Photon.Pun;
 public class WaterGunShot : MonoBehaviourPunCallbacks
 {
     //水オブジェクト
-    public GameObject Water;
+    [SerializeField] GameObject Water;
 
     //発射間隔
-    public float INTERVAL = 5.5f;
+    const float INTERVAL = 5.5f;
 
     //発射間隔待ち時間
     float m_FireInterval = 0;
@@ -23,13 +23,13 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     float m_DirectionCount = 0;
 
     //水の威力
-    int m_WaterPower = 5;
+    int m_WaterPower = 3;
 
     //消費する水の量
     const int WATER_COST = 2;
 
     //エフェクト
-    public GameObject m_Effect;
+    [SerializeField] GameObject m_Effect;
 
     // Start is called before the first frame update
     void Start()

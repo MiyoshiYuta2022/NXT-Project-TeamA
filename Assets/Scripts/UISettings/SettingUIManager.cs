@@ -45,6 +45,8 @@ public class SettingUIManager : MonoBehaviour
     {
         MenuPanel.SetActive(false);
         SettingPanel.SetActive(true);
+        GameObject.Find("XValue").GetComponent<SetSensXValue>().SetValue();
+        GameObject.Find("YValue").GetComponent<SetSensYValue>().SetValue();
     }
 
     public void SelectQuit()

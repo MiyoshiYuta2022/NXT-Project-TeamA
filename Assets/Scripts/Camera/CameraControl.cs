@@ -1,42 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
+using UnityEngine.UI;
+using Photon.Pun;
+using UnityStandardAssets.Characters.FirstPerson;
 
-public class CameraControl : MonoBehaviour
+public class CameraControl : MonoBehaviourPunCallbacks
 {
-    // CameraSensivity
-    public int sens_x = 1500;
-    public int sens_y = 1500;
+    [SerializeField]
+    private GameObject MainCamera;
 
-    private CinemachineFreeLook freeLook;
+    private Slider SensivityX;
+    private Slider SensivityY;
+
+    // CameraSensivity
+    public float sens_x = 2.0f;
+    public float sens_y = 2.0f;
 
     private GameObject SettingUIManagerObj;
     private SettingUIManager SettingUIManagerScript;
 
-    private CinemachineVirtualCamera virtualCamera;
+    private FirstPersonController fps;
     // Start is called before the first frame update
     void Start()
     {
-        this.freeLook = this.GetComponent<CinemachineFreeLook>();
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        if (photonView.IsMine == false)
+        {
+            MainCamera.SetActive(false);
+        }
 
         SettingUIManagerObj = GameObject.Find("SettingUIManager");
         SettingUIManagerScript = SettingUIManagerObj.GetComponent<SettingUIManager>();
+
+        fps = GetComponent<FirstPersonController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (SettingUIManagerScript.GetMenuMode() == true)
+        if (SensivityX == null)
         {
-            freeLook.m_XAxis.m_MaxSpeed = 0;
-            freeLook.m_YAxis.m_MaxSpeed = 0;
+            if (SettingUIManagerScript.SettingPanel.activeSelf == true)
+            {
+                SensivityX = GameObject.Find("SensivityX").GetComponent<Slider>();
+                SensivityY = GameObject.Find("SensivityY").GetComponent<Slider>();
+            }
         }
-        else
+        
+        if(SettingUIManagerScript.SettingPanel.activeSelf == false)
         {
-            freeLook.m_XAxis.m_MaxSpeed = sens_x;
-            freeLook.m_YAxis.m_MaxSpeed = sens_y;
+            if(SensivityX != null)
+            {
+                SensivityX = null;
+                SensivityY = null;
+            }
         }
+
+        if (SensivityX != null)
+        {
+            sens_x = SensivityX.value;
+            sens_y = SensivityY.value;
+        }
+
+        sens_x = float.Parse(sens_x.ToString("N1"));
+        sens_y = float.Parse(sens_y.ToString("N1"));
+
+        fps.GetMouseLook().XSensitivity = sens_x;
+        fps.GetMouseLook().YSensitivity = sens_y;
     }
 }

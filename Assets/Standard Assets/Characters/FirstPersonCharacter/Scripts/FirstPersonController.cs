@@ -268,5 +268,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             return m_MouseLook;
         }
+
+        public Quaternion GetCameraRot()
+        {
+            return m_Camera.transform.rotation;
+        }
     }
 }

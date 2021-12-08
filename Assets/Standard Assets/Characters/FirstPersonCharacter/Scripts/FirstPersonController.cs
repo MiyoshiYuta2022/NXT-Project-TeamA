@@ -43,6 +43,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private bool b_isMenuMode;
         
         // Use this for initialization
         private void Start()
@@ -56,6 +57,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
+            b_isMenuMode = false;
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
 
@@ -65,7 +67,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (photonView.IsMine)
             {
-                RotateView();
+                if (b_isMenuMode == false)
+                    RotateView();
                 // the jump state needs to read here to make sure it is not missed
                 if (!m_Jump)
                 {
@@ -272,6 +275,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public Quaternion GetCameraRot()
         {
             return m_Camera.transform.rotation;
+        }
+
+        public void SetIsMenuMode(bool menuMode)
+        {
+            b_isMenuMode = menuMode;
         }
     }
 }

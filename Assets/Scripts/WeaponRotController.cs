@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
+using Photon.Pun;
 
-public class WeaponRotController : MonoBehaviour
+public class WeaponRotController : MonoBehaviourPunCallbacks
 {
     [SerializeField] FirstPersonController fps;
     // Start is called before the first frame update
@@ -15,6 +16,9 @@ public class WeaponRotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.transform.rotation = fps.GetCameraRot();
+        if (photonView.IsMine)
+        {
+            this.gameObject.transform.rotation = fps.GetCameraRot();
+        }
     }
 }

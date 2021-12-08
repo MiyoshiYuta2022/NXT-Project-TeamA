@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class SettingUIManager : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class SettingUIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             // If the menu is disabled, enable it.
-            if (MenuPanel.activeSelf == false) MenuPanel.SetActive(true);
+            if (b_isMenuMode == false) MenuPanel.SetActive(true);
             else MenuPanel.SetActive(false); // Disable if enabled.
         }
 
@@ -39,6 +40,8 @@ public class SettingUIManager : MonoBehaviour
         if (MenuPanel.activeSelf == true || SettingPanel.activeSelf == true)
             b_isMenuMode = true;
         else b_isMenuMode = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().SetIsMenuMode(b_isMenuMode);
+
     }
 
     public void SelectSetting()

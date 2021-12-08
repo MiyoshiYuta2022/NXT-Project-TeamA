@@ -8,7 +8,7 @@ public class WaterMove : MonoBehaviour
     const float SPEED = 40f;
 
     //消えるまでの時間
-    const float DESTROY_TIME = 10;
+    const float DESTROY_TIME = 6;
 
     //消える時間のカウント
     float m_DestroyCount = 0;
@@ -17,7 +17,7 @@ public class WaterMove : MonoBehaviour
     int m_WaterPower = 1;
 
     //出した人のID
-    public int m_OwnerId;
+    [SerializeField] int m_OwnerId;
 
     //IDを設定
     public void Init(int ownerId)

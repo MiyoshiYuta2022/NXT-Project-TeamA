@@ -17,15 +17,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool jumpFlag = false;
     private TestHeat.PLAYER_STATE playerState = TestHeat.PLAYER_STATE.ARIVE;
 
+    private GameObject SettingUIManagerObj;
+    private SettingUIManager SettingUIManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Rigidbody���擾���C��]���Ȃ��悤�ɌŒ�
+        //Rigidbodyを取得し，回転しないように固定
         rb = GetComponent<Rigidbody>();
         //rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         rb.useGravity = false;
+
+        SettingUIManagerObj = GameObject.Find("SettingUIManager");
+        SettingUIManagerScript = SettingUIManagerObj.GetComponent<SettingUIManager>();
     }
 
     // Update is called once per frame
@@ -33,27 +38,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+            horizontal = 0.0f;
+            vertical = 0.0f;
+            if (SettingUIManagerScript.GetMenuMode() == false)
+            {
+                horizontal = Input.GetAxis("Horizontal");
+                vertical = Input.GetAxis("Vertical");
+            }
 
-            // �J�����̉�]�p�̎擾
+            // カメラの回転角の取得
             float cameraRotateX = Camera.main.transform.localEulerAngles.x;
 
-            //�E�r�̃I�u�W�F�N�g�擾
+            //右腕のオブジェクト取得
             GameObject rightarm = transform.Find("RightArm").gameObject;
 
-            // �J�����̉�]�p�ƉE�r�̉�]�p�𓯊�
+            // カメラの回転角と右腕の回転角を同期
             rightarm.transform.localEulerAngles = new Vector3(cameraRotateX * -1 + 90, -90.0f, -90.0f);
 
-            // �J�����̉�]�p�̎擾
+            // カメラの回転角の取得
             float cameraRotateY = Camera.main.transform.localEulerAngles.y;
 
-            // �J�����̉�]�p�ƃv���C���[�̉�]�p�𓯊�
+            // カメラの回転角とプレイヤーの回転角を同期
             this.transform.localEulerAngles = new Vector3(0.0f, cameraRotateY - 90.0f, 0.0f);
 
+            //ジャンプが押された & プレイヤーが生きているなら
             if (Input.GetAxisRaw("Jump") != 0.0f && playerState == TestHeat.PLAYER_STATE.ARIVE)
             {
-                 jumpFlag = true;
+                if (SettingUIManagerScript.GetMenuMode() == false)
+                {
+                    jumpFlag = true;
+                }
             }
         }
     }
@@ -64,12 +78,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             SetLocalGravity();
 
-            //�ړ�����
+            //移動処理
             if (horizontal != 0 || vertical != 0)
             {
                 if (playerState == TestHeat.PLAYER_STATE.ARIVE)
                 {
-                    // Rigidbody�ł̈ړ�(�L�[�𗣂�����኱����)
+                    // Rigidbodyでの移動(キーを離した後若干動く)
                     //moveDirection = speed * new Vector3(vertical, 0.0f, -horizontal).normalized;
                     //moveDirection = transform.TransformDirection(moveDirection);
                     //rb.MovePosition(rb.position + moveDirection * Time.fixedDeltaTime);
@@ -83,8 +97,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 StopMove();
             }
 
-            // �W�����v����
-            if (jumpFlag == true)//���n���Ă���Ƃ�
+            // ジャンプ処理
+            if (jumpFlag == true)//着地しているとき
             {
                 jumpFlag = false;
                 OnJump();
@@ -92,11 +106,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    void OnCollisionEnter(Collision other) //�n�ʂɐG�ꂽ���̏���
+    void OnCollisionEnter(Collision other) //地面に触れた時の処理
     {
-        if (other.gameObject.tag == "Ground") //Ground�^�O�̃I�u�W�F�N�g�ɐG�ꂽ�Ƃ�
+        if (other.gameObject.tag == "Ground") //Groundタグのオブジェクトに触れたとき
         {
-            isGround = true; //isGround��true�ɂ���
+            isGround = true; //isGroundをtrueにする
         }
     }
 
@@ -116,10 +130,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (playerState == TestHeat.PLAYER_STATE.ARIVE)
         {
-            if (isGround == true)
+            if (SettingUIManagerScript.GetMenuMode() == false)
             {
-                isGround = false;
-                rb.AddForce(new Vector3(0, jumpPower, 0));
+                if (isGround == true)
+                {
+                    isGround = false;
+                    rb.AddForce(new Vector3(0, jumpPower, 0));
+                }
             }
         }
     }

@@ -93,9 +93,7 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("Dead");
                 GetComponent<TestHeat>().m_Hp = 0;
-                GetComponent<PlayerController>().SetPlayerState(TestHeat.PLAYER_STATE.DEATH);
                 GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
-                GetComponent<ReviveSystem>().SetPlayerState(TestHeat.PLAYER_STATE.DEATH);
                 return;
             }
         }

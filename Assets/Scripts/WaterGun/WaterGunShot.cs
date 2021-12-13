@@ -48,35 +48,38 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
             //発射間隔待ち時間が0を下回ったら
             if (m_FireInterval <= 0)
             {
-                //マウスを左クリックしている間 または　RBを押している間
-                if (Input.GetMouseButton(0) || Input.GetKey("joystick button 5"))
+                if (GameObject.Find("SettingUIManager").GetComponent<SettingUIManager>().GetMenuMode() == false)
                 {
-                    //水の量を取得
-                    AmountOfWater amountOfWater = gameObject.GetComponent<AmountOfWater>();
-                    int check = amountOfWater.GetAmountOfWater();
-
-                    if (check > 0)
+                    //マウスを左クリックしている間 または　RBを押している間
+                    if (Input.GetMouseButton(0) || Input.GetKey("joystick button 5"))
                     {
-                        //撃つ
-                        photonView.RPC(nameof(GunShot), RpcTarget.All);
+                        //水の量を取得
+                        AmountOfWater amountOfWater = gameObject.GetComponent<AmountOfWater>();
+                        int check = amountOfWater.GetAmountOfWater();
 
-                        //エフェクト表示
-                        m_Effect.SetActive(true);
+                        if (check > 0)
+                        {
+                            //撃つ
+                            photonView.RPC(nameof(GunShot), RpcTarget.All);
 
-                        //水を減らす
-                        amountOfWater.DownAmountOfWater(WATER_COST);
+                            //エフェクト表示
+                            m_Effect.SetActive(true);
+
+                            //水を減らす
+                            amountOfWater.DownAmountOfWater(WATER_COST);
+                        }
+                        else
+                        {
+                            //エフェクト非表示
+                            m_Effect.SetActive(false);
+                            Debug.Log("Norn Water");
+                        }
                     }
                     else
                     {
                         //エフェクト非表示
                         m_Effect.SetActive(false);
-                        Debug.Log("Norn Water");
                     }
-                }
-                else
-                {
-                    //エフェクト非表示
-                    m_Effect.SetActive(false);
                 }
             }
             else

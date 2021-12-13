@@ -17,10 +17,10 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
     GameObject m_NornWaterText;
 
     //水の量UI
-    Slider m_WaterSlider;
-    GameObject m_WaterSliderObj;
-    Slider m_RedWaterSlider;
-    GameObject m_RedWaterSliderObj;
+    [SerializeField] Slider m_WaterSlider;
+    [SerializeField] GameObject m_WaterSliderObj;
+    [SerializeField] Slider m_RedWaterSlider;
+    [SerializeField] GameObject m_RedWaterSliderObj;
 
 
     // Start is called before the first frame update
@@ -32,11 +32,6 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
         m_NornWaterText = GameObject.Find("NornWaterText");
         //表示しない状態にしておく
         m_NornWaterText.SetActive(false);
-
-        m_WaterSlider = GameObject.Find("WaterSlider").GetComponent<Slider>();
-        m_WaterSliderObj = GameObject.Find("WaterSlider");
-        m_RedWaterSlider = GameObject.Find("RedWaterSlider").GetComponent<Slider>();
-        m_RedWaterSliderObj = GameObject.Find("RedWaterSlider");
     }
 
     // Update is called once per frame
@@ -59,6 +54,11 @@ public class AmountOfWater : MonoBehaviourPunCallbacks
 
             //水の量に応じてスライダーを動かす
             m_WaterSlider.value = m_AmountOfWater;
+        }
+        else
+        {
+            m_WaterSliderObj.SetActive(false);
+            m_RedWaterSliderObj.SetActive(false);
         }
     }
 

@@ -445,7 +445,7 @@ Transform:
   - {fileID: 6167230580009933152}
   - {fileID: 3737974644329729357}
   - {fileID: 1488666067310833311}
-  - {fileID: 4047385967879048155}
+  - {fileID: 4719070053249159140}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1784,6 +1784,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResultPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 2591972455474585028, guid: ef6ef348cbb00f44181decb4fa55002b, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5182739798423128631, guid: ef6ef348cbb00f44181decb4fa55002b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1874,8 +1878,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef6ef348cbb00f44181decb4fa55002b, type: 3}
---- !u!224 &4047385967879048155 stripped
+--- !u!224 &4719070053249159140 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6534226195257858555, guid: ef6ef348cbb00f44181decb4fa55002b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2591972455474585028, guid: ef6ef348cbb00f44181decb4fa55002b, type: 3}
   m_PrefabInstance: {fileID: 7099089195895968288}
   m_PrefabAsset: {fileID: 0}

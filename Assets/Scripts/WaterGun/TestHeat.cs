@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class TestHeat : MonoBehaviourPunCallbacks
 {
@@ -52,6 +53,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             Debug.Log("Change");
                             GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
                             GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
+                            GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
                         }
                         break;
                     }
@@ -61,11 +63,12 @@ public class TestHeat : MonoBehaviourPunCallbacks
                         photonView.RPC(nameof(Check), RpcTarget.All);
 
                         //ïœÇ¶ÇÈÅiâºÅj
-                        photonView.RPC(nameof(Change2), RpcTarget.All);
-                        Debug.Log("Dawn");
-                        GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
-                        GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
-                        GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
+                        //photonView.RPC(nameof(Change2), RpcTarget.All);
+                        //Debug.Log("Dawn");
+                        //GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
+                        //GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
+                        //GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
+                        //GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
                         break;
                     }
                 case PLAYER_STATE.DEATH:

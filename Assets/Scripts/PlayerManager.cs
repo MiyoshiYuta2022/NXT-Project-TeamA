@@ -96,7 +96,7 @@ public class PlayerManager : MonoBehaviour
                     Debug.Log("Dead");
                     GetComponent<TestHeat>().m_Hp = 0;
                     GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
-                    GameObject.Find("GameController").GetComponent<VictoryJudgement>().IsPlayerDead();
+                    GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
 
                     return;
                 }

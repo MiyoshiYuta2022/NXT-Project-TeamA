@@ -65,7 +65,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
                         Debug.Log("Dawn");
                         GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
                         GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
-                        GameObject.Find("GameController").GetComponent<VictoryJudgement>().IsPlayerDead();
+                        GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
                         break;
                     }
                 case PLAYER_STATE.DEATH:

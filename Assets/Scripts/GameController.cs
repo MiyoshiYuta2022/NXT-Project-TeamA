@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
         SettingUIManagerObj = GameObject.Find("SettingUIManager");
         SettingUIManagerScript = SettingUIManagerObj.GetComponent<SettingUIManager>();
-        VictoryJudgement = GameObject.Find("GameController").GetComponent<VictoryJudgement>();
+        VictoryJudgement = GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>();
     }
     void Update()
     {

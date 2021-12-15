@@ -42,7 +42,7 @@ public class SettingUIManager : MonoBehaviour
         else b_isMenuMode = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonController>().SetIsMenuMode(b_isMenuMode);
 
-        if (GameObject.Find("GameController").GetComponent<VictoryJudgement>().GetIsGameFinish() == true && b_isMenuMode == true)
+        if (GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().GetIsGameFinish() == true && b_isMenuMode == true)
         {
             MenuPanel.SetActive(false);
             SettingPanel.SetActive(false);

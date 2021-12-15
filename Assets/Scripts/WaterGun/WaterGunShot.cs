@@ -94,6 +94,10 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
                     m_FireInterval -= Time.deltaTime;
                 }
             }
+            else
+            {
+                m_Effect.SetActive(false);
+            }
         }
     }
 

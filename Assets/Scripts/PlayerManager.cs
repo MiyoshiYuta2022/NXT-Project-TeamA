@@ -93,13 +93,16 @@ public class PlayerManager : MonoBehaviour
             {
                 if (GetComponent<TestHeat>().m_PlayerState != TestHeat.PLAYER_STATE.DEATH)
                 {
-                    Debug.Log("Dead");
                     GetComponent<TestHeat>().m_Hp = 0;
                     GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
                     GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
 
                     return;
                 }
+            }
+            else
+            {
+                GetComponent<TestHeat>().m_Hp = (int)survivalTime * 20;
             }
         }
     }

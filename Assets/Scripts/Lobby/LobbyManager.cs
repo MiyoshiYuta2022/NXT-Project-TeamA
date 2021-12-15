@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 // for multiplayer lobby code (creating/finding room, connection to server, etc) and UI toggle
@@ -29,6 +30,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] TMP_InputField usernameInput;
     [SerializeField] GameObject cancelButton;
     [SerializeField] GameObject leaveRoomButton;
+    [SerializeField] GameObject teamModeButton;
     private Hashtable gameMode;
 
     private void Awake()
@@ -228,6 +230,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobbyPanel.SetActive(false);
         gameModePanel.SetActive(true);
         leaveRoomButton.SetActive(false);
+        if (PhotonNetwork.PlayerList.Length > 2)
+            teamModeButton.GetComponent<Button>().interactable = true;
+        else 
+            teamModeButton.GetComponent<Button>().interactable = false;
+
     }
 
     // change username and set in Photon Network and Player Prefs

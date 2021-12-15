@@ -18,6 +18,15 @@ public class WaterRising : MonoBehaviour
 
     void waterRise()
     {
+        if(transform.position.y <10.75)
         transform.Translate(Vector3.up * 0.025f, Space.World);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.name=="duck1"||other.name =="popsicle")
+        {
+            other.transform.SetParent(gameObject.transform);
+        }
     }
 }

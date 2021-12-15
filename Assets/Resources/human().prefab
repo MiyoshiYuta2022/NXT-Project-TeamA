@@ -926,6 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09661b005c231ed4ab06c26ba727258e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
   bombCount: 0
   playerUI: {fileID: 6167230580009933157}
 --- !u!114 &7722597444455223455

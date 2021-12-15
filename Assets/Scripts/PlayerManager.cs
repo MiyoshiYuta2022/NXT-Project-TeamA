@@ -12,7 +12,7 @@ using TMPro;
 public class PlayerManager : MonoBehaviour
 {
     private PhotonView photonView;
-    private Color playerColor;
+    public Color playerColor;
     public int bombCount;
     public GameObject playerUI;
     private float survivalTime;
@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerUI.transform.GetChild(0).gameObject.SetActive(true);
             bFreeze = true;
-            survivalTime = 5;
+            survivalTime = GetComponent<TestHeat>().m_Hp/20;
         }
     }
 
@@ -93,13 +93,16 @@ public class PlayerManager : MonoBehaviour
             {
                 if (GetComponent<TestHeat>().m_PlayerState != TestHeat.PLAYER_STATE.DEATH)
                 {
-                    Debug.Log("Dead");
                     GetComponent<TestHeat>().m_Hp = 0;
                     GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
                     GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
 
                     return;
                 }
+            }
+            else
+            {
+                GetComponent<TestHeat>().m_Hp = (int)survivalTime * 20 ;
             }
         }
     }

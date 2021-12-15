@@ -6,35 +6,42 @@ using Photon.Pun;
 
 public class WaterGunShot : MonoBehaviourPunCallbacks
 {
-    //…ƒIƒuƒWƒFƒNƒg
+    //ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
     [SerializeField] GameObject Water;
 
-    //”­ËŠÔŠu
+    //ï¿½ï¿½ï¿½ËŠÔŠu
     const float INTERVAL = 5.5f;
 
-    //”­ËŠÔŠu‘Ò‚¿ŠÔ
+    //ï¿½ï¿½ï¿½ËŠÔŠuï¿½Ò‚ï¿½ï¿½ï¿½ï¿½ï¿½
     float m_FireInterval = 0;
 
-    //•ûŒü
+    //ï¿½ï¿½ï¿½ï¿½
     const float DIRECTION_1 = -3;
     const float DIRECTION_2 = 5;
 
-    //•ûŒü‚ÌƒJƒEƒ“ƒg
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ÌƒJï¿½Eï¿½ï¿½ï¿½g
     float m_DirectionCount = 0;
 
-    //…‚ÌˆĞ—Í
+    //ï¿½ï¿½ï¿½ÌˆĞ—ï¿½
     int m_WaterPower = 3;
 
-    //Á”ï‚·‚é…‚Ì—Ê
+    //ï¿½ï¿½ï¿½ï‚·ï¿½é…ï¿½Ì—ï¿½
     const int WATER_COST = 2;
 
-    //ƒGƒtƒFƒNƒg
+    //ï¿½Gï¿½tï¿½Fï¿½Nï¿½g
     [SerializeField] GameObject m_Effect;
+
+    //ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
+    private bool b_isGameFinish;
+
+    private GameObject SettingUIManagerObj;
 
     // Start is called before the first frame update
     void Start()
     {
         m_Effect.SetActive(false);
+        b_isGameFinish = false;
+        SettingUIManagerObj = GameObject.Find("SettingUIManager");
     }
 
     // Update is called once per frame
@@ -45,63 +52,66 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            //”­ËŠÔŠu‘Ò‚¿ŠÔ‚ª0‚ğ‰º‰ñ‚Á‚½‚ç
-            if (m_FireInterval <= 0)
+            if (b_isGameFinish == false && SettingUIManagerObj.GetComponent<SettingUIManager>().GetMenuMode() == false)
             {
-                if (GameObject.Find("SettingUIManager").GetComponent<SettingUIManager>().GetMenuMode() == false)
+                //ï¿½ï¿½ï¿½ËŠÔŠuï¿½Ò‚ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                if (m_FireInterval <= 0)
                 {
-                    //ƒ}ƒEƒX‚ğ¶ƒNƒŠƒbƒN‚µ‚Ä‚¢‚éŠÔ ‚Ü‚½‚Í@RB‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
+                    //ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ ï¿½Ü‚ï¿½ï¿½Í@RBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½
                     if (Input.GetMouseButton(0) || Input.GetKey("joystick button 5"))
                     {
-                        //…‚Ì—Ê‚ğæ“¾
+                        //ï¿½ï¿½ï¿½Ì—Ê‚ï¿½ï¿½æ“¾
                         AmountOfWater amountOfWater = gameObject.GetComponent<AmountOfWater>();
                         int check = amountOfWater.GetAmountOfWater();
 
                         if (check > 0)
                         {
-                            //Œ‚‚Â
+                            //ï¿½ï¿½ï¿½ï¿½
                             photonView.RPC(nameof(GunShot), RpcTarget.All);
 
-                            //ƒGƒtƒFƒNƒg•\¦
+                            //ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½\ï¿½ï¿½
                             m_Effect.SetActive(true);
 
-                            //…‚ğŒ¸‚ç‚·
+                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
                             amountOfWater.DownAmountOfWater(WATER_COST);
                         }
                         else
                         {
-                            //ƒGƒtƒFƒNƒg”ñ•\¦
+                            //ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½\ï¿½ï¿½
                             m_Effect.SetActive(false);
                             Debug.Log("Norn Water");
                         }
                     }
                     else
                     {
-                        //ƒGƒtƒFƒNƒg”ñ•\¦
+                        //ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½\ï¿½ï¿½
                         m_Effect.SetActive(false);
                     }
+                }
+                else
+                {
+                    //ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
+                    m_FireInterval -= Time.deltaTime;
                 }
             }
             else
             {
-                //ƒCƒ“ƒ^[ƒoƒ‹‚ğŒ¸‚ç‚·
-                m_FireInterval -= Time.deltaTime;
+                m_Effect.SetActive(false);
             }
-
         }
     }
 
     [PunRPC]
     private void GunShot()
     {
-        //À•W
+        //ï¿½ï¿½ï¿½W
         Vector3 pos = this.gameObject.transform.position;
-        //©•ª‚ÌƒIƒuƒWƒFƒNƒg
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½g
         GameObject myobject = this.gameObject;
-        //‰ñ“]Šp“x
+        //ï¿½ï¿½]ï¿½pï¿½x
         Quaternion keeprotation = this.gameObject.transform.rotation;
 
-        //”­Ëƒpƒ^[ƒ“
+        //ï¿½ï¿½ï¿½Ëƒpï¿½^ï¿½[ï¿½ï¿½
         if (m_DirectionCount == 10)
         {
             myobject.transform.Rotate(0, DIRECTION_1, 0);
@@ -119,19 +129,24 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
         }
 
 
-        // CubeƒvƒŒƒnƒu‚ğŒ³‚ÉAƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬A
+        // Cubeï¿½vï¿½ï¿½ï¿½nï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ÉAï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ğ¶ï¿½ï¿½A
         GameObject waterobject = Instantiate(Water, new Vector3(pos.x, pos.y, pos.z), myobject.transform.rotation);
 
-        //ID‚ğ‚í‚½‚·@
+        //IDï¿½ï¿½ï¿½í‚½ï¿½ï¿½ï¿½@
         waterobject.GetComponent<WaterMove>().Init(photonView.OwnerActorNr);
 
-        //…‚ÌˆĞ—Í‚ğw’è
+        //ï¿½ï¿½ï¿½ÌˆĞ—Í‚ï¿½ï¿½wï¿½ï¿½
         waterobject.GetComponent<WaterMove>().SetWaterPower(m_WaterPower);
 
-        //ƒCƒ“ƒ^[ƒoƒ‹ƒZƒbƒg
+        //ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½oï¿½ï¿½ï¿½Zï¿½bï¿½g
         m_FireInterval = INTERVAL * Time.deltaTime;
 
-        //‰ñ“]Šp‚ğ–ß‚·
+        //ï¿½ï¿½]ï¿½pï¿½ï¿½ß‚ï¿½
         this.gameObject.transform.rotation = keeprotation;
+    }
+
+    public void SetIsGameFinish(bool isGameFinish)
+    {
+        b_isGameFinish = isGameFinish;
     }
 }

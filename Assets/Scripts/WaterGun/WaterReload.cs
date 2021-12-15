@@ -30,11 +30,11 @@ public class WaterReload : MonoBehaviourPunCallbacks
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (photonView.IsMine)
         {
-            if(other.tag == "WaterSource")
+            if(other.tag == "WaterSource" || other.tag == "ColdWater")
             {
                 m_HitWaterSourceFrag = true;
             }
@@ -44,7 +44,7 @@ public class WaterReload : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (other.tag == "WaterSource")
+            if (other.tag == "WaterSource" || other.tag == "ColdWater")
             {
                 m_HitWaterSourceFrag = false;
             }

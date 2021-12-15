@@ -1,15 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class RedHpSliderControl : MonoBehaviour
+using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+using Photon.Pun;
+
+public class RedHpSliderControl : MonoBehaviourPunCallbacks
 {
     //HPスライダー
     [SerializeField] Slider m_HPSlider;
 
     //赤い水スライダー
     [SerializeField] Slider m_RedHPSlider;
+
+    //エフェクトボリューム
+    [SerializeField] Volume m_Volume;
+    [SerializeField] GameObject m_VolumeObj;
+    private Vignette m_Vignette;
+    
 
     //値保存
     float m_Value;
@@ -33,23 +44,46 @@ public class RedHpSliderControl : MonoBehaviour
         m_Value = 0;
         m_ChangeCount = 0;
         m_SliderMoveFrag = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (photonView.IsMine)
+        {
+            m_VolumeObj.SetActive(true);
+        }
+        else
+        {
+            m_VolumeObj.SetActive(false);
+        }
+
         //値が違ったら値を入れる
         if (m_Value != m_HPSlider.value)
         {
+            if (m_Value <= m_HPSlider.value)
+            {
+                m_RedHPSlider.value = m_HPSlider.value;
+            }
+            
             m_Value = m_HPSlider.value;
             m_RedValue = m_RedHPSlider.value;
+
+            
 
             //カウントを設定する
             m_ChangeCount = CHANGE_WAIT_TIME;
 
             //フラグをfalseにする
-            m_SliderMoveFrag = false;
+            //m_SliderMoveFrag = false;
+
+            m_Volume.profile.TryGet<Vignette>(out m_Vignette);
+
+            m_Vignette.intensity.value = 1 - m_Value / 100;
+
         }
+        
 
         //カウントを減らす
         m_ChangeCount -= Time.deltaTime;

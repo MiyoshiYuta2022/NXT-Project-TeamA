@@ -21,11 +21,11 @@ public class WaterSourceText : MonoBehaviourPunCallbacks
         
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (photonView.IsMine)
         {
-            if (other.tag == "WaterSource")
+            if (other.tag == "WaterSource" || other.tag == "ColdWater")
             {
                 m_RelodeText.SetActive(true);
             }
@@ -36,7 +36,7 @@ public class WaterSourceText : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (other.tag == "WaterSource")
+            if (other.tag == "WaterSource" || other.tag == "ColdWater")
             {
                 m_RelodeText.SetActive(false);
             }

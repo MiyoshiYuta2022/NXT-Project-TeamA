@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8435244969044295481}
   - component: {fileID: 8435244969044295480}
   - component: {fileID: 8435244969044295487}
-  - component: {fileID: 8435244969044295486}
   - component: {fileID: 2070250274175793500}
   - component: {fileID: 2972713562845485092}
+  - component: {fileID: 6537639945611909469}
+  - component: {fileID: 8536198785001479112}
   m_Layer: 0
   m_Name: WaterSource
   m_TagString: WaterSource
@@ -84,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8435244969044295486
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8435244969044295485}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.8
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2070250274175793500
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -135,3 +123,28 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!65 &6537639945611909469
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8435244969044295485}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 3, z: 1.2}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &8536198785001479112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8435244969044295485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1120daad2fcf964aa23702c483c5f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

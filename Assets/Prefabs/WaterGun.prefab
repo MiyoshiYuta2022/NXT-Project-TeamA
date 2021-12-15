@@ -211,7 +211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Water: {fileID: 8903203897498336005, guid: b30fa27e9c299f84b83ff2cb4df9566f, type: 3}
-  INTERVAL: 5.5
   m_Effect: {fileID: 2758134911809609891}
 --- !u!114 &4835600898759645974
 MonoBehaviour:
@@ -225,6 +224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f066055a57aad45a13be0d07a3f1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WaterSlider: {fileID: 0}
+  m_WaterSliderObj: {fileID: 0}
+  m_RedWaterSlider: {fileID: 0}
+  m_RedWaterSliderObj: {fileID: 0}
 --- !u!114 &6755106898721305285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8551819530921506904, guid: 57e01e8ce59daef47997f2451a0f814f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.57
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8551819530921506904, guid: 57e01e8ce59daef47997f2451a0f814f, type: 3}
       propertyPath: m_LocalPosition.z

@@ -91,7 +91,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
         if (other.gameObject.tag == "Water")
         {
             //é©ï™ÇÃêÖÇ∂Ç·Ç»Ç©Ç¡ÇΩÇÁèàóùÇ∑ÇÈ
-            if (other.GetComponent<WaterMove>().GetOwnerId() != photonView.OwnerActorNr)
+            if (other.GetComponent<WaterMove>().GetOwnerId() != photonView.OwnerActorNr && other.GetComponent<PlayerManager>().playerColor != GetComponent<PlayerManager>().playerColor)
             {
                 int power = other.GetComponent<WaterMove>().GetWaterPower();
                 photonView.RPC(nameof(HpDowm), RpcTarget.All,power);
@@ -100,7 +100,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
         if (other.gameObject.tag == "WaterBomb")
         {
             //é©ï™ÇÃêÖÇ∂Ç·Ç»Ç©Ç¡ÇΩÇÁèàóùÇ∑ÇÈ
-            if (other.GetComponent<WaterBomb>().GetOwnerId() != photonView.OwnerActorNr)
+            if (other.GetComponent<WaterBomb>().GetOwnerId() != photonView.OwnerActorNr && other.GetComponent<PlayerManager>().playerColor != GetComponent<PlayerManager>().playerColor)
             {
                 int power = other.GetComponent<WaterBomb>().GetWaterPower();
                 photonView.RPC(nameof(HpDowm), RpcTarget.All, power);

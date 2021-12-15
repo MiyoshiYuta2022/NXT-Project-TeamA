@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     private GameObject SettingUIManagerObj;
     private SettingUIManager SettingUIManagerScript;
+    private VictoryJudgement VictoryJudgement;
 
     private void Start()
     {
@@ -18,20 +19,11 @@ public class GameController : MonoBehaviour
 
         SettingUIManagerObj = GameObject.Find("SettingUIManager");
         SettingUIManagerScript = SettingUIManagerObj.GetComponent<SettingUIManager>();
+        VictoryJudgement = GameObject.Find("GameController").GetComponent<VictoryJudgement>();
     }
     void Update()
     {
-        ////ESCキーを押すとカーソルを
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    //表示を切り替え
-        //    Cursor.visible = !Cursor.visible;
-        //    // 現在のカーソルモードに合わせて切り替え
-        //    if (Cursor.lockState == CursorLockMode.None) Cursor.lockState = CursorLockMode.Locked;
-        //    else Cursor.lockState = CursorLockMode.None;
-        //}
-
-        if(SettingUIManagerScript.GetMenuMode() == true)
+        if (SettingUIManagerScript.GetMenuMode() == true || VictoryJudgement.GetIsGameFinish() == true)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

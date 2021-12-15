@@ -91,10 +91,15 @@ public class PlayerManager : MonoBehaviour
             cntdownText.text = survivalTime.ToString("#.00");
             if (survivalTime < 0f)
             {
-                Debug.Log("Dead");
-                GetComponent<TestHeat>().m_Hp = 0;
-                GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
-                return;
+                if (GetComponent<TestHeat>().m_PlayerState != TestHeat.PLAYER_STATE.DEATH)
+                {
+                    Debug.Log("Dead");
+                    GetComponent<TestHeat>().m_Hp = 0;
+                    GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
+                    GameObject.Find("GameController").GetComponent<VictoryJudgement>().IsPlayerDead();
+
+                    return;
+                }
             }
         }
     }

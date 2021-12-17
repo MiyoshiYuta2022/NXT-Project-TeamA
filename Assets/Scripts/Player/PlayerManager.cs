@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
        
-        int playerNum = photonView.OwnerActorNr;
+        int playerNum = photonView.OwnerActorNr - 1;
 
         // returns gameMode selected from player properties (master client as others are null)
         bool gameMode = (bool)PhotonNetwork.MasterClient.CustomProperties["Mode"];
@@ -63,17 +63,17 @@ public class PlayerManager : MonoBehaviour
     // for interaction with cold water
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "ColdWater")
+        if (other.gameObject.tag == "ColdWater"&& photonView.IsMine)
         {
             playerUI.transform.GetChild(0).gameObject.SetActive(true);
             bFreeze = true;
-            survivalTime = GetComponent<TestHeat>().m_Hp/20;
+            survivalTime = GetComponent<TestHeat>().m_Hp/10;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "ColdWater")
+        if (other.gameObject.tag == "ColdWater" && photonView.IsMine)
         {
             playerUI.transform.GetChild(0).gameObject.SetActive(false);
             bFreeze = false;
@@ -102,7 +102,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                GetComponent<TestHeat>().m_Hp = (int)survivalTime * 20;
+                GetComponent<TestHeat>().m_Hp = (int)survivalTime * 10;
             }
         }
     }

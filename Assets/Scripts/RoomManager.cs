@@ -82,7 +82,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if(scene.buildIndex==1) // in first game/level scene
         {
-            Vector3 startPos = new Vector3(Random.Range(-10f,10f), 4.22f, Random.Range(-10f, 10f));
+            Vector3 startPos = new Vector3(Random.Range(-10f,10f), 10f, Random.Range(-10f, 10f));
             PhotonNetwork.Instantiate(Path.Combine("human()"), startPos, Quaternion.identity);
         }
     }

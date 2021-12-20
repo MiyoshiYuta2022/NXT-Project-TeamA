@@ -326,7 +326,7 @@ MonoBehaviour:
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 0.266
     min: 0
     max: 1
   clamp:
@@ -335,7 +335,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.8520418, b: 0, a: 1}
+    m_Value: {r: 1, g: 0.87373006, b: 0.8349056, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1

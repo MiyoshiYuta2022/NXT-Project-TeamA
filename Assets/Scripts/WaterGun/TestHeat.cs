@@ -41,6 +41,15 @@ public class TestHeat : MonoBehaviourPunCallbacks
             m_HpSliderObj.SetActive(true);
             m_RedHpSliderObj.SetActive(true);
 
+            if(GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().GetIsGameFinish() == true
+                && m_PlayerState != PLAYER_STATE.ARIVE)
+            {
+                photonView.RPC(nameof(Change2), RpcTarget.All);
+                GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
+                GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
+                GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
+            }
+
             switch (m_PlayerState)
             {
                 case PLAYER_STATE.ARIVE:
@@ -64,11 +73,11 @@ public class TestHeat : MonoBehaviourPunCallbacks
 
                         //ïœÇ¶ÇÈÅiâºÅj
                         //photonView.RPC(nameof(Change2), RpcTarget.All);
-                        //Debug.Log("Dawn");
+                        Debug.Log("Dawn");
                         //GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
                         //GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
                         //GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
-                        //GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
+                        GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
                         break;
                     }
                 case PLAYER_STATE.DEATH:

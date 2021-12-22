@@ -46,7 +46,6 @@ public class VictoryJudgement : MonoBehaviourPunCallbacks
     public void IsPlayerDead()
     {
         photonView.RPC(nameof(IsPlayerDeadRPC), RpcTarget.All);
-       
     }
 
     [PunRPC]

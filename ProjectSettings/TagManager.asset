@@ -9,6 +9,7 @@ TagManager:
   - ColdWater
   - WaterSource
   - WaterBomb
+  - Fire
   layers:
   - Default
   - TransparentFX

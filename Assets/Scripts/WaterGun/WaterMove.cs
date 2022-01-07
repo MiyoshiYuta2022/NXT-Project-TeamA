@@ -55,7 +55,7 @@ public class WaterMove : MonoBehaviour
             Destroy(this.gameObject);
         }
         //ÉvÉåÉCÉÑÅ[Ç…ìñÇΩÇ¡ÇΩÇÁ
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerCollision")
         {
             Destroy(this.gameObject);
         }

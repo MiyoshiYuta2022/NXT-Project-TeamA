@@ -9,7 +9,6 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
     static float NEED_REVIVAL_TIME = 5.0f;
     private TestHeat.PLAYER_STATE playerState = TestHeat.PLAYER_STATE.ARIVE;
     public float reviveTime;
-    private bool b_onFireArea;
 
     public int HP_WHEN_REVIVED = 50;
     public int NEXT_DOWN_HP = 70;
@@ -19,7 +18,6 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
     void Start()
     {
         reviveTime = 0.0f;
-        b_onFireArea = false;
     }
 
     // Update is called once per frame
@@ -33,7 +31,7 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
         if (playerState == TestHeat.PLAYER_STATE.DAWN)
         {
             // 蘇生可能エリア内で蘇生キーが押されたら
-            if (b_onFireArea == true)
+            if (GameObject.Find("Fire").GetComponent<ReviveArea>().GetOnFireArea() == true)
             {
                 reviveTime += Time.fixedDeltaTime;
                 if (reviveTime >= NEED_REVIVAL_TIME)
@@ -55,24 +53,14 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
                     Quaternion nowRot = m_playerModel.transform.rotation;
                     nowRot *= Quaternion.Euler(-90.0f, 0.0f, 0.0f);
                     m_playerModel.transform.rotation = nowRot;
+                    // モデルの位置調整
+                    m_playerModel.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 }
             }
         }
-
-        b_onFireArea = false;
-
     }
     public void SetPlayerState(TestHeat.PLAYER_STATE nowState)
     {
         playerState = nowState;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (photonView.IsMine)
-        {
-            if (other.gameObject.tag == "Fire")
-                b_onFireArea = true;
-        }
     }
 }

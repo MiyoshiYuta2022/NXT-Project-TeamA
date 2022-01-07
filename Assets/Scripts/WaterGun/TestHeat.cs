@@ -80,9 +80,12 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             m_RedHpSlider.value = 0;
                             m_sliderImage.color = Color.yellow;
 
+                            // プレイヤーのモデルを倒す
                             Quaternion nowRot = m_playerModel.transform.rotation;
                             nowRot *= Quaternion.Euler(90.0f, 0.0f, 0.0f);
                             m_playerModel.transform.rotation = nowRot;
+                            // モデルの位置調整
+                            m_playerModel.transform.localPosition = new Vector3(2.0f, 1.0f, -3.5f);
                         }
                         break;
                     }
@@ -163,7 +166,22 @@ public class TestHeat : MonoBehaviourPunCallbacks
     {
         //水の威力分体力を下げる
         //Lower your HP　by the Power of water.
-        m_Hp -= power;
+        if (photonView.IsMine)
+        {
+            switch (m_PlayerState)
+            {
+                case PLAYER_STATE.ARIVE:
+                    {
+                        m_Hp -= power;
+                        break;
+                    }
+                case PLAYER_STATE.DAWN:
+                    {
+                        m_DownStateHp -= (float)power / 2;
+                        break;
+                    }
+            }
+        }
     }
     //------------------------------------------------
 

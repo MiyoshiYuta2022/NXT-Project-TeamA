@@ -322,7 +322,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     {
                         m_speedMultiplier = 0.3f;
                         m_headHeight = -3.0f;
-                        m_cameraPosAdjust = 4.5f;
+                        //m_cameraPosAdjust = 4.5f;
+                        m_cameraPosAdjust = -0.0f;
                         break;
                     }
                 case PLAYER_STATE.DEATH:

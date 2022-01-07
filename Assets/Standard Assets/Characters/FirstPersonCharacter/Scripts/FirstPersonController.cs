@@ -55,6 +55,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool b_isGameFinish;
         private PLAYER_STATE m_nowState;
         private float m_speedMultiplier;
+        private float m_headHeight;
+        private float m_cameraPosAdjust;
 
         // Use this for initialization
         private void Start()
@@ -73,6 +75,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_nowState = PLAYER_STATE.ARIVE;
             m_speedMultiplier = 1.0f;
 			m_MouseLook.Init(transform , m_Camera.transform);
+            m_headHeight = 0.5f;
+            m_cameraPosAdjust = 0.9f;
         }
 
 
@@ -89,7 +93,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         RotateView();
 
                     // the jump state needs to read here to make sure it is not missed
-                    if (!m_Jump)
+                    if (!m_Jump && m_nowState == PLAYER_STATE.ARIVE)
                     {
                         m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
                     }
@@ -225,13 +229,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Camera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
                                       (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
-                newCameraPosition = m_Camera.transform.localPosition + new Vector3(0.0f, 0.0f, 0.9f);
-                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset() + 0.5f;
+                newCameraPosition = m_Camera.transform.localPosition + new Vector3(0.0f, 0.0f, m_cameraPosAdjust);
+                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset() + m_headHeight;
             }
             else
             {
                 newCameraPosition = m_Camera.transform.localPosition;
-                newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset() + 0.5f;
+                newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset() + m_headHeight;
             }
             m_Camera.transform.localPosition = newCameraPosition;
         }
@@ -310,11 +314,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 case PLAYER_STATE.ARIVE:
                     {
                         m_speedMultiplier = 1.0f;
+                        m_headHeight = 0.5f;
+                        m_cameraPosAdjust = 0.9f;
                         break;
                     }
                 case PLAYER_STATE.DAWN:
                     {
-                        m_speedMultiplier = 0.2f;
+                        m_speedMultiplier = 0.3f;
+                        m_headHeight = -3.0f;
+                        //m_cameraPosAdjust = 4.5f;
+                        m_cameraPosAdjust = -0.0f;
                         break;
                     }
                 case PLAYER_STATE.DEATH:

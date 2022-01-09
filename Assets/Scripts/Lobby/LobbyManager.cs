@@ -82,6 +82,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log("Disconnected from server for: " + cause.ToString());
+        Application.Quit();
     }
 
     // toggle from menu to create/find room UI
@@ -182,11 +183,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Disconnecting server");
         PhotonNetwork.Disconnect();
-        if(!PhotonNetwork.IsConnected)
-        {
-            Debug.Log("Disconnected from server");
-            Application.Quit();
-        }    
     }
 
     // update room list in find room UI

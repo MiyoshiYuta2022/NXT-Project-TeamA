@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlareController : MonoBehaviour
 {
     GameObject m_Player;
+    [SerializeField] GameObject m_FlareParent;
     [SerializeField] GameObject m_Flare1;
     [SerializeField] GameObject m_Flare2;
     [SerializeField] GameObject m_Flare3;
 
-    [SerializeField] GameObject m_Light;
+    [SerializeField] Transform m_Target;
+
+    Rect rect = new Rect(0, 0, 1, 1); // ‰æ–Ê“à‚©”»’è‚·‚é‚½‚ß‚ÌRect
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +23,22 @@ public class FlareController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // human‚ðHierarchy‚©‚ç‚Ý‚Â‚¯‚é
-        m_Player = GameObject.Find("human()(Clone)");
-        this.transform.position = m_Light.transform.position - m_Player.transform.position;
-        m_Flare1.transform.position = (m_Light.transform.position - m_Player.transform.position) * 1.5f;
-        m_Flare2.transform.position = (m_Light.transform.position - m_Player.transform.position);
-        m_Flare3.transform.position = (m_Light.transform.position - m_Player.transform.position) / 2;
+
+        if (m_FlareParent.activeSelf)
+        {
+            // human‚ðHierarchy‚©‚ç‚Ý‚Â‚¯‚é
+            m_Player = GameObject.Find("human()(Clone)");
 
 
-        this.transform.rotation = m_Flare1.transform.rotation = m_Flare2.transform.rotation = 
-            m_Flare3.transform.rotation = m_Light.transform.rotation;
+            this.transform.position = m_Target.transform.position - m_Player.transform.position;
+            m_Flare1.transform.position = (m_Target.transform.position - m_Player.transform.position) / 3;
+            m_Flare2.transform.position = (m_Target.transform.position - m_Player.transform.position) / 10;
+            m_Flare3.transform.position = (m_Target.transform.position - m_Player.transform.position) / 30;
+
+
+            //this.transform.rotation = m_Flare1.transform.rotation = m_Flare2.transform.rotation = 
+            //    m_Flare3.transform.rotation = m_Light.transform.rotation;
+        }
     }
+
 }

@@ -37,11 +37,11 @@ public class LockChack : MonoBehaviour
 
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 30, Color.red, 5);
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 5);
 
         if (m_LockFrag)
         {
-            if (Physics.Raycast(ray, out hit, 30.0f))
+            if (Physics.Raycast(ray, out hit, 100.0f))
             {
                 if (hit.collider.tag == "Flare")
                 {

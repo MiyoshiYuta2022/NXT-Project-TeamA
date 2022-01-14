@@ -82,43 +82,23 @@ public class TestHeat : MonoBehaviourPunCallbacks
             m_RedHpSliderObj.SetActive(false);
         }
     }
-    
 
-    void OnTriggerEnter(Collider other)
+    public int GetOwnerId()
     {
-        //水に当たったら
-        //be exposed to water        
-        if (other.gameObject.tag == "Water")
-        {
-            //自分の水じゃなかったら処理する
-            if (other.GetComponent<WaterMove>().GetOwnerId() != photonView.OwnerActorNr)
-            {
-                int power = other.GetComponent<WaterMove>().GetWaterPower();
-                photonView.RPC(nameof(HpDowm), RpcTarget.All,power);
-            }
-        }
-        if (other.gameObject.tag == "WaterBomb")
-        {
-            //自分の水じゃなかったら処理する
-            if (other.GetComponent<WaterBomb>().GetOwnerId() != photonView.OwnerActorNr)
-            {
-                int power = other.GetComponent<WaterBomb>().GetWaterPower();
-                photonView.RPC(nameof(HpDowm), RpcTarget.All, power);
-            }
-        }
-
+        return photonView.OwnerActorNr;
     }
 
-    //プレイヤーステートの入手
-    public PLAYER_STATE GetPlayerState()
+    public void HpDowm(int power)
     {
-        return m_PlayerState;
+        //水の威力分体力を下げる
+        //Lower your HP　by the Power of water.
+        photonView.RPC(nameof(HpDowmRPC), RpcTarget.All, power);
     }
 
 
     //体力を下げる
     [PunRPC]
-    void HpDowm(int power)
+    private void HpDowmRPC(int power)
     {
         //水の威力分体力を下げる
         //Lower your HP　by the Power of water.

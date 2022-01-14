@@ -57,6 +57,9 @@ public class WaterMove : MonoBehaviour
         //ÉvÉåÉCÉÑÅ[Ç…ìñÇΩÇ¡ÇΩÇÁ
         if (other.gameObject.tag == "Player")
         {
+            if(GetOwnerId() != other.GetComponent<TestHeat>().GetOwnerId())
+                other.GetComponent<TestHeat>().HpDowm(GetWaterPower());
+
             Destroy(this.gameObject);
         }
     }

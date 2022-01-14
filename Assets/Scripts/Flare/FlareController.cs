@@ -28,13 +28,15 @@ public class FlareController : MonoBehaviour
         {
             // human‚ðHierarchy‚©‚ç‚Ý‚Â‚¯‚é
             m_Player = GameObject.Find("human()(Clone)");
-           // GameObject cameraObj =  m_Player.transform.Find("FirstPersonCharacter").gameObject;
-          //  Camera camera = cameraObj.GetComponent<Camera>();
 
             this.transform.position = m_Target.transform.position - m_Player.transform.position;
             m_Flare1.transform.position = (m_Target.transform.position - m_Player.transform.position) / 3;
             m_Flare2.transform.position = (m_Target.transform.position - m_Player.transform.position) / 10;
             m_Flare3.transform.position = (m_Target.transform.position - m_Player.transform.position) / 30;
+
+            m_Flare1.transform.Translate(0, m_Player.transform.position.y, 0);
+            m_Flare2.transform.Translate(0, m_Player.transform.position.y, 0);
+            m_Flare3.transform.Translate(0, m_Player.transform.position.y, 0);
         }
     }
 

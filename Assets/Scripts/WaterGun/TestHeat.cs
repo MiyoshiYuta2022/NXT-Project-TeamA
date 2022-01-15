@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class TestHeat : MonoBehaviourPunCallbacks
 {
@@ -18,13 +19,24 @@ public class TestHeat : MonoBehaviourPunCallbacks
     //体力
     public int m_Hp = 100;
 
+    //ダウン状態での体力
+    public float m_DownStateHp = 100.0f;
+
+    private static float SUBSTRACTION_DOWN_STATE_HP = 5;
+    private float m_DownStateHpSubCount = 0;
+    private static float SUBSTRACTION_TIME = 3f;
+
     //プレイヤーの状態
     public PLAYER_STATE m_PlayerState = PLAYER_STATE.ARIVE;
 
     //体力のスライダー
     [SerializeField]Slider m_HPSlider;
+    [SerializeField] Image m_sliderImage;
     [SerializeField] GameObject m_HpSliderObj;
     [SerializeField] GameObject m_RedHpSliderObj;
+    [SerializeField] Slider m_RedHpSlider;
+
+    [SerializeField] GameObject m_playerModel;
 
 
     // Start is called before the first frame update
@@ -40,10 +52,21 @@ public class TestHeat : MonoBehaviourPunCallbacks
             m_HpSliderObj.SetActive(true);
             m_RedHpSliderObj.SetActive(true);
 
+            if(GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().GetIsGameFinish() == true
+                && m_PlayerState != PLAYER_STATE.ARIVE)
+            {
+                photonView.RPC(nameof(Change2), RpcTarget.All);
+                GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
+                GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
+                GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
+            }
+
             switch (m_PlayerState)
             {
                 case PLAYER_STATE.ARIVE:
                     {
+                        m_HPSlider.value = m_Hp;
+
                         //体力がなくなったら状態を変える
                         //change your state.
                         if (m_Hp <= 0)
@@ -52,20 +75,43 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             Debug.Log("Change");
                             GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
                             GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
+                            GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
+                            Debug.Log("Dawn");
+                            m_RedHpSlider.value = 0;
+                            m_sliderImage.color = Color.yellow;
+
+                            // プレイヤーのモデルを倒す
+                            Quaternion nowRot = m_playerModel.transform.rotation;
+                            nowRot *= Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                            m_playerModel.transform.rotation = nowRot;
+                            // モデルの位置調整
+                            m_playerModel.transform.localPosition = new Vector3(2.0f, 1.0f, -3.5f);
                         }
                         break;
                     }
                 case PLAYER_STATE.DAWN:
                     {
+                        m_DownStateHpSubCount += Time.deltaTime;
+
+                        if(m_DownStateHpSubCount >= SUBSTRACTION_TIME)
+                        {
+                            m_DownStateHpSubCount = 0;
+                            m_DownStateHp -= SUBSTRACTION_DOWN_STATE_HP;
+                        }
+                        m_HPSlider.value = m_DownStateHp;
+
                         //遷移したかの確認
                         photonView.RPC(nameof(Check), RpcTarget.All);
 
-                        //変える（仮）
-                        photonView.RPC(nameof(Change2), RpcTarget.All);
-                        Debug.Log("Dawn");
-                        GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
-                        GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
-                        GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
+                        //ダウン状態での体力がなくなったら状態を変える
+                        if (m_DownStateHp <= 0)
+                        {
+                            photonView.RPC(nameof(Change2), RpcTarget.All);
+                            GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
+                            GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
+                            GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
+                            GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
+                        }
                         break;
                     }
                 case PLAYER_STATE.DEATH:
@@ -74,7 +120,6 @@ public class TestHeat : MonoBehaviourPunCallbacks
                     }
             }
 
-            m_HPSlider.value = m_Hp;
         }
         else
         {
@@ -102,7 +147,22 @@ public class TestHeat : MonoBehaviourPunCallbacks
     {
         //水の威力分体力を下げる
         //Lower your HP　by the Power of water.
-        m_Hp -= power;
+        if (photonView.IsMine)
+        {
+            switch (m_PlayerState)
+            {
+                case PLAYER_STATE.ARIVE:
+                    {
+                        m_Hp -= power;
+                        break;
+                    }
+                case PLAYER_STATE.DAWN:
+                    {
+                        m_DownStateHp -= (float)power / 2;
+                        break;
+                    }
+            }
+        }
     }
     //------------------------------------------------
 
@@ -112,7 +172,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
     [PunRPC]
     void Check()
     {
-        this.gameObject.transform.Rotate(0, 0, 180);
+        //this.gameObject.transform.Rotate(0, 0, 180);
     }
     [PunRPC]
     void Change()

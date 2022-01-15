@@ -24,8 +24,11 @@ public class ShowResult : MonoBehaviour
 
     public void ShowPanel()
     {
-        if (GetComponent<TestHeat>().m_PlayerState == TestHeat.PLAYER_STATE.DEATH)
+        if (GetComponent<TestHeat>().m_PlayerState != TestHeat.PLAYER_STATE.ARIVE)
+        {
             LosePanel.SetActive(true);
+            Debug.Log(GetComponent<TestHeat>().m_PlayerState);
+        }
         else WinPanel.SetActive(true);
     }
 }

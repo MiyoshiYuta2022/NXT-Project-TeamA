@@ -30,6 +30,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        public Animator animator;
+        private enum PLAYER_STATE
+        {
+            ARIVE = 0,  //ê∂Ç´ÇƒÇ¢ÇÈ
+            DAWN,       //É_ÉEÉì
+            DEATH,      //éÄñS
+        };
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -45,7 +53,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
         private bool b_isMenuMode;
         private bool b_isGameFinish;
-        
+        private PLAYER_STATE m_nowState;
+        private float m_speedMultiplier;
+        private float m_headHeight;
+        private float m_cameraPosAdjust;
+
         // Use this for initialization
         private void Start()
         {
@@ -60,7 +72,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
             b_isMenuMode = false;
             b_isGameFinish = false;
+            m_nowState = PLAYER_STATE.ARIVE;
+            m_speedMultiplier = 1.0f;
 			m_MouseLook.Init(transform , m_Camera.transform);
+            m_headHeight = 0.5f;
+            m_cameraPosAdjust = 0.9f;
         }
 
 
@@ -71,10 +87,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 if (b_isGameFinish == false)
                 {
+                    StateCalculate();
+
                     if (b_isMenuMode == false)
                         RotateView();
+
                     // the jump state needs to read here to make sure it is not missed
-                    if (!m_Jump)
+                    if (!m_Jump && m_nowState == PLAYER_STATE.ARIVE)
                     {
                         m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
                     }
@@ -85,6 +104,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         PlayLandingSound();
                         m_MoveDir.y = 0f;
                         m_Jumping = false;
+                        animator.SetBool("Jump", m_Jumping);
                     }
                     if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
                     {
@@ -122,8 +142,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                                        m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
                     desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-                    m_MoveDir.x = desiredMove.x * speed;
-                    m_MoveDir.z = desiredMove.z * speed;
+                    m_MoveDir.x = desiredMove.x * speed * m_speedMultiplier;
+                    m_MoveDir.z = desiredMove.z * speed * m_speedMultiplier;
 
 
                     if (m_CharacterController.isGrounded)
@@ -136,6 +156,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                             PlayJumpSound();
                             m_Jump = false;
                             m_Jumping = true;
+                            animator.SetBool("Jump", m_Jumping);
                         }
                     }
                     else
@@ -208,13 +229,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Camera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
                                       (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
-                newCameraPosition = m_Camera.transform.localPosition + new Vector3(0.0f, 0.0f, 0.7f);
-                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset() + 0.8f;
+                newCameraPosition = m_Camera.transform.localPosition + new Vector3(0.0f, 0.0f, m_cameraPosAdjust);
+                newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset() + m_headHeight;
             }
             else
             {
                 newCameraPosition = m_Camera.transform.localPosition;
-                newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset() + 0.8f;
+                newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset() + m_headHeight;
             }
             m_Camera.transform.localPosition = newCameraPosition;
         }
@@ -241,6 +262,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_Input.sqrMagnitude > 1)
             {
                 m_Input.Normalize();
+            }
+
+            if(m_Input.y != 0 && m_Input.x != 0)
+            {
+                animator.SetFloat("Forward", m_Input.y);
+                animator.SetFloat("Right", 0.0f);
+            }
+            else
+            {
+                animator.SetFloat("Forward", m_Input.y);
+                animator.SetFloat("Right", m_Input.x);
             }
 
             // handle speed change to give an fov kick
@@ -275,6 +307,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
 
+        private void StateCalculate()
+        {
+            switch(m_nowState)
+            {
+                case PLAYER_STATE.ARIVE:
+                    {
+                        m_speedMultiplier = 1.0f;
+                        m_headHeight = 0.5f;
+                        m_cameraPosAdjust = 0.9f;
+                        break;
+                    }
+                case PLAYER_STATE.DAWN:
+                    {
+                        m_speedMultiplier = 0.3f;
+                        m_headHeight = -3.0f;
+                        //m_cameraPosAdjust = 4.5f;
+                        m_cameraPosAdjust = -0.0f;
+                        break;
+                    }
+                case PLAYER_STATE.DEATH:
+                    {
+                        m_speedMultiplier = 0.0f;
+                        break;
+                    }
+            }
+        }
         public MouseLook GetMouseLook()
         {
             return m_MouseLook;
@@ -293,6 +351,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public void SetIsGameFinish(bool isGameFinish)
         {
             b_isGameFinish = isGameFinish;
+        }
+
+        public void SetNowPlayerState(int playerState)
+        {
+            m_nowState = (PLAYER_STATE)playerState;
         }
     }
 }

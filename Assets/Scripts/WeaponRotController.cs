@@ -7,6 +7,7 @@ using Photon.Pun;
 public class WeaponRotController : MonoBehaviourPunCallbacks
 {
     [SerializeField] FirstPersonController fps;
+    [SerializeField] Quaternion AdjustmentRotation;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class WeaponRotController : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            this.gameObject.transform.rotation = fps.GetCameraRot();
+            this.gameObject.transform.rotation = fps.GetCameraRot() * AdjustmentRotation;
         }
     }
 }

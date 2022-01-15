@@ -10,6 +10,8 @@ TagManager:
   - WaterSource
   - WaterBomb
   - Flare
+  - Fire
+  - PlayerCollision
   layers:
   - Default
   - TransparentFX

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuPanel: {fileID: 8785445430448653142}
   SettingPanel: {fileID: 8785445429683806569}
+  Mouse: {fileID: 8008902766130203308}
 --- !u!1001 &435229039509929576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,6 +162,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9216074110890446891, guid: 2a39ac898815137499ba9763b6949a79, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9216074111083211881, guid: 2a39ac898815137499ba9763b6949a79, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -196,5 +201,10 @@ GameObject:
 --- !u!1 &8785445429683806569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9216074111272197889, guid: 2a39ac898815137499ba9763b6949a79, type: 3}
+  m_PrefabInstance: {fileID: 435229039509929576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8008902766130203308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7579391187090011332, guid: 2a39ac898815137499ba9763b6949a79, type: 3}
   m_PrefabInstance: {fileID: 435229039509929576}
   m_PrefabAsset: {fileID: 0}

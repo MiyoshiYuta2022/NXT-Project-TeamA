@@ -99,6 +99,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomPanel.SetActive(false);
     }
 
+    // toggle from find room to menu UI
+    public void changeCreateRoom()
+    {
+        createRoomPanel.SetActive(true);
+        findRoomPanel.SetActive(false);
+    }
+
     // return to main menu if stuck in loading screen
     public void cancelAction()
     {

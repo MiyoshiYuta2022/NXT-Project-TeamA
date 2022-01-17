@@ -9,7 +9,7 @@ public class Username : MonoBehaviour
     [SerializeField] PhotonView photonView;
     [SerializeField] TMP_Text nameText;
     private Color nameColor;
-    public int test = 1;
+
     // Start is called before the first frame update
     void Start()
     {

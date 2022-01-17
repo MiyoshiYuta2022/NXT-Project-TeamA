@@ -10,11 +10,11 @@ public class Billboard : MonoBehaviour
     void Update()
     {
         if (cam == null)
-            cam = FindObjectOfType<Camera>();
+            cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         if (cam == null)
             return;
 
         transform.LookAt(cam.transform);
-        //transform.Rotate(Vector3.up * 180);
+        transform.Rotate(Vector3.up * 180);
     }
 }

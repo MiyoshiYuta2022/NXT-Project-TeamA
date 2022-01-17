@@ -37,7 +37,7 @@ public class LockChack : MonoBehaviour
 
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 5);
+        //Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 5);
 
         if (m_LockFrag)
         {

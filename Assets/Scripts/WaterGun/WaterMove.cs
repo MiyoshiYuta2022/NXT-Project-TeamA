@@ -57,8 +57,10 @@ public class WaterMove : MonoBehaviour
         //ÉvÉåÉCÉÑÅ[Ç…ìñÇΩÇ¡ÇΩÇÁ
         if (other.gameObject.tag == "PlayerCollision")
         {
-            if(GetOwnerId() != other.GetComponent<TestHeat>().GetOwnerId())
-                other.GetComponent<TestHeat>().HpDowm(GetWaterPower());
+            GameObject parent = other.gameObject.transform.root.gameObject;
+
+            if(GetOwnerId() != parent.GetComponent<TestHeat>().GetOwnerId())
+                parent.GetComponent<TestHeat>().HpDowm(GetWaterPower());
 
             Destroy(this.gameObject);
         }

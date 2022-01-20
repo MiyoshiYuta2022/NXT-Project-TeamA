@@ -18,6 +18,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject findRoomPanel;
     [SerializeField] GameObject lobbyPanel;
     [SerializeField] GameObject gameModePanel;
+    [SerializeField] GameObject howToPlayPanel;
     [SerializeField] TMP_InputField roomNameInput;
     [SerializeField] TMP_Text createRoomErrorText;
     [SerializeField] TMP_Text roomNameText;
@@ -90,7 +91,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         playPanel.SetActive(false);
         roomPanel.SetActive(true);
-    }
+    }    
 
     // toggle from create/find room to menu UI
     public void changeMenu(GameObject roomPanel)

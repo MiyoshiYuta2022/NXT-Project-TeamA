@@ -245,6 +245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatusUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3017053872331677147, guid: b44b1a91fcd9e174eb3d0e0a567bad54, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4640781922672267994, guid: b44b1a91fcd9e174eb3d0e0a567bad54, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

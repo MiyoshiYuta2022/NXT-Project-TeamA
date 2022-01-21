@@ -9,6 +9,7 @@ TagManager:
   - ColdWater
   - WaterSource
   - WaterBomb
+  - Flare
   - Fire
   - PlayerCollision
   layers:
@@ -18,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Flare
   - 
   - 
   - 

@@ -10,7 +10,7 @@ public class WaterBomb : MonoBehaviour
     public GameObject waterpart;
 
     //移動速度
-    const float SPEED = 15f;
+    const float SPEED = 25f;
 
     //消えるまでの時間
     const float DESTROY_TIME = 10;
@@ -62,6 +62,11 @@ public class WaterBomb : MonoBehaviour
         //プレイヤーに当たったら
         if (other.gameObject.tag == "PlayerCollision")
         {
+            GameObject parent = other.gameObject.transform.root.gameObject;
+
+            if (GetOwnerId() != parent.GetComponent<TestHeat>().GetOwnerId())
+                parent.GetComponent<TestHeat>().HpDowm(GetWaterPower());
+
             Destroy(this.gameObject);
         }
 

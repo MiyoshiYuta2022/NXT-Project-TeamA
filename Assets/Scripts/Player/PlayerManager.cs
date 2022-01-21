@@ -56,6 +56,8 @@ public class PlayerManager : MonoBehaviour
         // display only player UI
         if (photonView.IsMine)
             playerUI.SetActive(true);
+        else
+            playerUI.SetActive(false);
             
 
     }
@@ -63,11 +65,21 @@ public class PlayerManager : MonoBehaviour
     // for interaction with cold water
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "ColdWater"&& photonView.IsMine)
+        if (photonView.IsMine)
         {
-            playerUI.transform.GetChild(0).gameObject.SetActive(true);
-            bFreeze = true;
-            survivalTime = GetComponent<TestHeat>().m_Hp/10;
+            if (other.gameObject.tag == "ColdWater")
+            {
+                playerUI.transform.GetChild(0).gameObject.SetActive(true);
+                bFreeze = true;
+                survivalTime = GetComponent<TestHeat>().m_Hp / 10;
+            }
+            //else if(other.gameObject.name == "Instantkill")
+            //{
+            //    Debug.Log("Instant death");
+            //    GetComponent<TestHeat>().m_Hp = 0;
+            //    GetComponent<TestHeat>().m_PlayerState = TestHeat.PLAYER_STATE.DEATH;
+            //    GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
+            //}
         }
     }
 
@@ -87,8 +99,6 @@ public class PlayerManager : MonoBehaviour
         if (bFreeze) 
         {
             survivalTime -= Time.deltaTime;
-            TMP_Text cntdownText = playerUI.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TMP_Text>();
-            cntdownText.text = survivalTime.ToString("#.00");
             if (survivalTime < 0f)
             {
                 if (GetComponent<TestHeat>().m_PlayerState != TestHeat.PLAYER_STATE.DEATH)

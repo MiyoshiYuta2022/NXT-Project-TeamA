@@ -35,6 +35,7 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     private bool b_isGameFinish;
 
     private GameObject SettingUIManagerObj;
+    private GameObject PlayerObj;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
         m_Effect.SetActive(false);
         b_isGameFinish = false;
         SettingUIManagerObj = GameObject.Find("SettingUIManager");
+        PlayerObj = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -52,7 +54,8 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (b_isGameFinish == false && SettingUIManagerObj.GetComponent<SettingUIManager>().GetMenuMode() == false)
+            if (b_isGameFinish == false && SettingUIManagerObj.GetComponent<SettingUIManager>().GetMenuMode() == false
+                && PlayerObj.GetComponent<TestHeat>().m_PlayerState == TestHeat.PLAYER_STATE.ARIVE)
             {
                 //���ˊԊu�҂����Ԃ�0�����������
                 if (m_FireInterval <= 0)

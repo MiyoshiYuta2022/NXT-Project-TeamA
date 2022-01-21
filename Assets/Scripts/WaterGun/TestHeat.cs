@@ -29,6 +29,8 @@ public class TestHeat : MonoBehaviourPunCallbacks
     //プレイヤーの状態
     public PLAYER_STATE m_PlayerState = PLAYER_STATE.ARIVE;
 
+    public Animator animator;
+
     //体力のスライダー
     [SerializeField]Slider m_HPSlider;
     [SerializeField] Image m_sliderImage;
@@ -76,16 +78,18 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
                             GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
                             GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
+                            // Start Animation
+                            animator.SetBool("Down", true);
                             Debug.Log("Dawn");
                             m_RedHpSlider.value = 0;
                             m_sliderImage.color = Color.yellow;
 
-                            // プレイヤーのモデルを倒す
-                            Quaternion nowRot = m_playerModel.transform.rotation;
-                            nowRot *= Quaternion.Euler(90.0f, 0.0f, 0.0f);
-                            m_playerModel.transform.rotation = nowRot;
+                            //// プレイヤーのモデルを倒す
+                            //Quaternion nowRot = m_playerModel.transform.rotation;
+                            //nowRot *= Quaternion.Euler(90.0f, 0.0f, 0.0f);
+                            //m_playerModel.transform.rotation = nowRot;
                             // モデルの位置調整
-                            m_playerModel.transform.localPosition = new Vector3(2.0f, 1.0f, -3.5f);
+                            m_playerModel.transform.localPosition = new Vector3(2.0f, .0f, -3.5f);
                         }
                         break;
                     }

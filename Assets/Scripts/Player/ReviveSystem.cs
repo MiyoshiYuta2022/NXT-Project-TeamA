@@ -13,6 +13,8 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
     public int HP_WHEN_REVIVED = 50;
     public int NEXT_DOWN_HP = 70;
 
+    public Animator animator;
+
     [SerializeField] GameObject m_playerModel;
     // Start is called before the first frame update
     void Start()
@@ -46,13 +48,16 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
                     GetComponent<PlayerController>().SetPlayerState(playerState);
                     GetComponent<FirstPersonController>().SetNowPlayerState((int)playerState);
 
+                    // Start Animation
+                    animator.SetBool("Down", false);
+
                     Debug.Log("Revive");
                     // タイマーをリセット
                     reviveTime = 0.0f;
 
-                    Quaternion nowRot = m_playerModel.transform.rotation;
-                    nowRot *= Quaternion.Euler(-90.0f, 0.0f, 0.0f);
-                    m_playerModel.transform.rotation = nowRot;
+                    //Quaternion nowRot = m_playerModel.transform.rotation;
+                    //nowRot *= Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+                    //m_playerModel.transform.rotation = nowRot;
                     // モデルの位置調整
                     m_playerModel.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 }

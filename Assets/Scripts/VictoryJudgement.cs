@@ -55,6 +55,18 @@ public class VictoryJudgement : MonoBehaviourPunCallbacks
         Debug.Log("NowPlayerNum = " + playerNum);
     }
 
+    public void IsPlayerRevive()
+    {
+        photonView.RPC(nameof(IsPlayerReviveRPC), RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void IsPlayerReviveRPC()
+    {
+        playerNum++;
+        Debug.Log("NowPlayerNum = " + playerNum);
+    }
+
     public bool GetIsGameFinish()
     {
         return b_isGameFinish;

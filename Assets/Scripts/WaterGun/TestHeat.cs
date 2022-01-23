@@ -84,6 +84,9 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             m_RedHpSlider.value = 0;
                             m_sliderImage.color = Color.yellow;
 
+                            // 生存数を減らす
+                            GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
+
                             //// プレイヤーのモデルを倒す
                             //Quaternion nowRot = m_playerModel.transform.rotation;
                             //nowRot *= Quaternion.Euler(90.0f, 0.0f, 0.0f);
@@ -114,7 +117,6 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             GetComponent<ReviveSystem>().SetPlayerState(m_PlayerState);
                             GetComponent<PlayerController>().SetPlayerState(m_PlayerState);
                             GetComponent<FirstPersonController>().SetNowPlayerState((int)m_PlayerState);
-                            GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();
                         }
                         break;
                     }

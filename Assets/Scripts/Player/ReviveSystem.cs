@@ -48,6 +48,9 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
                     GetComponent<PlayerController>().SetPlayerState(playerState);
                     GetComponent<FirstPersonController>().SetNowPlayerState((int)playerState);
 
+                    // ¶‘¶”‚ğ‘‚â‚·
+                    GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerRevive();
+
                     // Start Animation
                     animator.SetBool("Down", false);
 

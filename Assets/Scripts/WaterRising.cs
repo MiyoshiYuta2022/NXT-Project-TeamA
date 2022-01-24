@@ -7,7 +7,7 @@ public class WaterRising : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("waterRise", 0.75f, 0.75f);
+        InvokeRepeating("waterRise", 0.1f, 0.04f);
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class WaterRising : MonoBehaviour
     void waterRise()
     {
         if(transform.position.y <10.75)
-        transform.Translate(Vector3.up * 0.025f, Space.World);
+        transform.Translate(Vector3.up * 0.01f, Space.World);
     }
 
     void OnTriggerEnter(Collider other)

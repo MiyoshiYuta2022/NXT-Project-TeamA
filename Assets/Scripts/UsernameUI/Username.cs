@@ -17,7 +17,7 @@ public class Username : MonoBehaviour
         if (photonView.IsMine)
             gameObject.SetActive(false);
         nameText.text = photonView.Owner.NickName;
-        nameColor = GetComponentInParent<PlayerManager>().playerColor;
+        nameColor = GetComponentInParent<PlayerColor>().playerColor;
         nameText.color = nameColor;
     }
 

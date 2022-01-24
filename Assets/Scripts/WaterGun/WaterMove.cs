@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using gameMode;
 public class WaterMove : MonoBehaviour
 {
     //à⁄ìÆë¨ìx
@@ -19,6 +19,8 @@ public class WaterMove : MonoBehaviour
     //èoÇµÇΩêlÇÃID
     [SerializeField] int m_OwnerId;
 
+    Color waterColor;
+
     //IDÇê›íË
     public void Init(int ownerId)
     {
@@ -28,7 +30,7 @@ public class WaterMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        waterColor = gameObject.GetComponent<PlayerColor>().setColorWater(m_OwnerId - 1);
     }
 
     // Update is called once per frame
@@ -58,8 +60,10 @@ public class WaterMove : MonoBehaviour
         if (other.gameObject.tag == "PlayerCollision")
         {
             GameObject parent = other.gameObject.transform.root.gameObject;
+            //only can damage opponent
+            bool bdiffColor = waterColor != parent.GetComponent<PlayerColor>().playerColor;
 
-            if(GetOwnerId() != parent.GetComponent<TestHeat>().GetOwnerId())
+            if (GetOwnerId() != parent.GetComponent<TestHeat>().GetOwnerId() && bdiffColor)
                 parent.GetComponent<TestHeat>().HpDowm(GetWaterPower());
 
             Destroy(this.gameObject);

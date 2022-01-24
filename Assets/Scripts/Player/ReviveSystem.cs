@@ -12,6 +12,8 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
 
     public int HP_WHEN_REVIVED = 50;
     public int NEXT_DOWN_HP = 70;
+    public bool b_onFireArea;
+
 
     public Animator animator;
 
@@ -20,6 +22,7 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
     void Start()
     {
         reviveTime = 0.0f;
+        b_onFireArea = false;
     }
 
     // Update is called once per frame
@@ -33,7 +36,7 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
         if (playerState == TestHeat.PLAYER_STATE.DAWN)
         {
             // 蘇生可能エリア内で蘇生キーが押されたら
-            if (GameObject.Find("Fire").GetComponent<ReviveArea>().GetOnFireArea() == true)
+            if (b_onFireArea)
             {
                 reviveTime += Time.fixedDeltaTime;
                 if (reviveTime >= NEED_REVIVAL_TIME)
@@ -70,5 +73,22 @@ public class ReviveSystem : MonoBehaviourPunCallbacks
     public void SetPlayerState(TestHeat.PLAYER_STATE nowState)
     {
         playerState = nowState;
+    }    
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Fire")
+        {
+            b_onFireArea = true;
+        }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Fire")
+        {
+            b_onFireArea = false;
+        }
+    }
+
 }

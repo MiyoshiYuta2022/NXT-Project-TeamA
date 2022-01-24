@@ -19,12 +19,19 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
 
     public TMP_Text bombCountText;
 
+    public Animator animator;
 
+    private float animWaitTimer;
+
+    private bool b_throwFlag;
     // Start is called before the first frame update
     void Start()
     {
         bombCount = GetComponentInParent<PlayerManager>().bombCount;
         bombCountText.text = "x " + bombCount.ToString();
+
+        animWaitTimer = 0.0f;
+        b_throwFlag = false;
     }
 
     // Update is called once per frame
@@ -36,9 +43,21 @@ public class WaterBombLauncher : MonoBehaviourPunCallbacks
             if (bombCount > 0 && m_FireInterval <= 0)
             {
                 //マウスを左クリックしている間
-                if (Input.GetMouseButton(1))
+                if (Input.GetMouseButtonDown(1))
                 {
-                    photonView.RPC(nameof(PlantBomb), RpcTarget.All);
+                    b_throwFlag = true;
+                    animator.Play("Blue_Throwing");
+                }
+
+                if (b_throwFlag == true)
+                {
+                    animWaitTimer += Time.deltaTime;
+                    if(animWaitTimer >= 0.4f)
+                    {
+                        photonView.RPC(nameof(PlantBomb), RpcTarget.All);
+                        b_throwFlag = false;
+                        animWaitTimer = 0.0f;
+                    }
                 }
             }
             else

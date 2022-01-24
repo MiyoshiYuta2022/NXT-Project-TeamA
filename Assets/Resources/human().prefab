@@ -2802,6 +2802,7 @@ MonoBehaviour:
   reviveTime: 0
   HP_WHEN_REVIVED: 50
   NEXT_DOWN_HP: 70
+  b_onFireArea: 0
   animator: {fileID: 6637761316725456654}
   m_playerModel: {fileID: 8747298221411449208}
 --- !u!114 &6167230580438480160

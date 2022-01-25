@@ -144,6 +144,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
         //…‚ÌˆĞ—Í•ª‘Ì—Í‚ğ‰º‚°‚é
         //Lower your HP@by the Power of water.
         photonView.RPC(nameof(HpDowmRPC), RpcTarget.All, power);
+        animator.Play("Blue_Hit");
     }
 
 

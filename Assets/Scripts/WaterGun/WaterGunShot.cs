@@ -37,6 +37,8 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
     private GameObject SettingUIManagerObj;
     private GameObject PlayerObj;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +73,8 @@ public class WaterGunShot : MonoBehaviourPunCallbacks
                         {
                             //����
                             photonView.RPC(nameof(GunShot), RpcTarget.All);
+
+                            animator.Play("Blue_Attack");
 
                             //�G�t�F�N�g�\��
                             m_Effect.SetActive(true);

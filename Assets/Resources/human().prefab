@@ -1063,6 +1063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Water: {fileID: 8903203897498336005, guid: b30fa27e9c299f84b83ff2cb4df9566f, type: 3}
   m_Effect: {fileID: 8345375302250768889}
+  animator: {fileID: 6637761316725456654}
 --- !u!114 &3363445912632094010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3106,6 +3107,7 @@ MonoBehaviour:
   waterBomb: {fileID: 5837206619366286869, guid: d543b1d8491e6324087f758181b0b1bb, type: 3}
   bombCount: 0
   bombCountText: {fileID: 6167230581877817396}
+  animator: {fileID: 6637761316725456654}
 --- !u!114 &6167230581335101750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3227,8 +3229,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
-  m_sharedMaterial: {fileID: -4570773773184666104, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4054,6 +4056,15 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: Down
+  - Type: 4
+    SynchronizeType: 0
+    Name: Throw
+  - Type: 4
+    SynchronizeType: 0
+    Name: Hit
+  - Type: 4
+    SynchronizeType: 0
+    Name: Shot
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -5430,16 +5441,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4976224526774806302, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
       propertyPath: m_fontSize
-      value: 267.15
+      value: 229.4
       objectReference: {fileID: 0}
     - target: {fileID: 4976224526774806302, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4976224526774806302, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -4570773773184666104, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
 --- !u!224 &5261188825413461041 stripped

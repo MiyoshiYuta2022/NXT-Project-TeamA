@@ -3106,6 +3106,7 @@ MonoBehaviour:
   waterBomb: {fileID: 5837206619366286869, guid: d543b1d8491e6324087f758181b0b1bb, type: 3}
   bombCount: 0
   bombCountText: {fileID: 6167230581877817396}
+  animator: {fileID: 6637761316725456654}
 --- !u!114 &6167230581335101750
 MonoBehaviour:
   m_ObjectHideFlags: 0

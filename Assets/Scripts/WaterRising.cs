@@ -7,7 +7,7 @@ public class WaterRising : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("waterRise", 0.1f, 0.04f);
+        InvokeRepeating("waterRise", 0.1f, 0.08f);
     }
 
     // Update is called once per frame

@@ -4832,6 +4832,7 @@ GameObject:
   - component: {fileID: -2471924146817241272}
   - component: {fileID: 563542172623585034}
   - component: {fileID: 7965863720137286907}
+  - component: {fileID: 3005753631714524830}
   m_Layer: 0
   m_Name: WaterBomb
   m_TagString: WaterBomb
@@ -4986,6 +4987,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &3005753631714524830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837206619366286869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cfb4607ca3eb841842b1cbf8e15860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8559814706227830885
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class SettingUIManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class SettingUIManager : MonoBehaviour
 
     void Quit()
     {
+        Debug.Log("Disconnecting server");
+        PhotonNetwork.Disconnect();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_STANDALONE

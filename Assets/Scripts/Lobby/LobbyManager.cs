@@ -234,10 +234,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         lobbyPanel.SetActive(false);
         gameModePanel.SetActive(true);
         leaveRoomButton.SetActive(false);
-        if (PhotonNetwork.PlayerList.Length == 4 | PhotonNetwork.PlayerList.Length == 6 || PhotonNetwork.PlayerList.Length == 8)
-            teamModeButton.GetComponent<Button>().interactable = true;
-        else 
-            teamModeButton.GetComponent<Button>().interactable = false;
 
     }
 

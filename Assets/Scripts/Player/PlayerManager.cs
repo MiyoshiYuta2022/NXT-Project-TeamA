@@ -12,7 +12,7 @@ using TMPro;
 public class PlayerManager : MonoBehaviour
 {
     private PhotonView photonView;
-    public Color playerColor;
+
     public int bombCount;
     public GameObject playerUI;
     private float survivalTime;
@@ -27,29 +27,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
        
-        int playerNum = photonView.OwnerActorNr - 1;
-
-        // returns gameMode selected from player properties (master client as others are null)
-        bool gameMode = (bool)PhotonNetwork.MasterClient.CustomProperties["Mode"];
-        //true - single mode, false - team mode
-        if (gameMode)
-        {
-            playerColor = CGameColors.getDefColor(playerNum);
-        }
-        else
-        {
-            // every 2 players form 1 team
-            if (playerNum < 2)
-                playerColor = CGameColors.getDefColor(0);
-            else if (playerNum < 4)
-                playerColor = CGameColors.getDefColor(1);
-            else if (playerNum < 6)
-                playerColor = CGameColors.getDefColor(2);
-            else if (playerNum < 8)
-                playerColor = CGameColors.getDefColor(3);
-            else
-                playerColor = CGameColors.getDefColor(default);
-        }
+        
         bombCount = 10;
         bFreeze = false;
 
@@ -58,8 +36,6 @@ public class PlayerManager : MonoBehaviour
             playerUI.SetActive(true);
         else
             playerUI.SetActive(false);
-            
-
     }
 
     // for interaction with cold water

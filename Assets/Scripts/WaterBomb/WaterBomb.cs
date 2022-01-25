@@ -24,6 +24,8 @@ public class WaterBomb : MonoBehaviour
     //èoÇµÇΩêlÇÃID
     public int m_OwnerId;
 
+    Color waterColor;
+
     //IDÇê›íË
     public void Init(int ownerId)
     {
@@ -33,7 +35,7 @@ public class WaterBomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        waterColor = gameObject.GetComponent<PlayerColor>().setColorWater(m_OwnerId - 1);
     }
 
     // Update is called once per frame
@@ -63,8 +65,8 @@ public class WaterBomb : MonoBehaviour
         if (other.gameObject.tag == "PlayerCollision")
         {
             GameObject parent = other.gameObject.transform.root.gameObject;
-
-            if (GetOwnerId() != parent.GetComponent<TestHeat>().GetOwnerId())
+            bool bdiffColor = waterColor != parent.GetComponent<PlayerColor>().playerColor;
+            if (GetOwnerId() != parent.GetComponent<TestHeat>().GetOwnerId() && bdiffColor)
                 parent.GetComponent<TestHeat>().HpDowm(GetWaterPower());
 
             Destroy(this.gameObject);

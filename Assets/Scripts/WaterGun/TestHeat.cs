@@ -34,6 +34,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
     //体力のスライダー
     [SerializeField]Slider m_HPSlider;
     [SerializeField] Image m_sliderImage;
+    [SerializeField] Image m_sliderballImage;
     [SerializeField] GameObject m_HpSliderObj;
     [SerializeField] GameObject m_RedHpSliderObj;
     [SerializeField] Slider m_RedHpSlider;
@@ -83,6 +84,7 @@ public class TestHeat : MonoBehaviourPunCallbacks
                             Debug.Log("Dawn");
                             m_RedHpSlider.value = 0;
                             m_sliderImage.color = Color.yellow;
+                            m_sliderballImage.color = Color.yellow;
 
                             // 生存数を減らす
                             GameObject.Find("VictoryJudgement").GetComponent<VictoryJudgement>().IsPlayerDead();

@@ -2864,7 +2864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterBomb: {fileID: 5837206619366286869, guid: d543b1d8491e6324087f758181b0b1bb, type: 3}
-  bombCount: 0
+  bombCount: 10
   bombCountText: {fileID: 6167230581877817396}
   animator: {fileID: 4654761837948355525}
 --- !u!114 &6167230581335101750
@@ -4507,11 +4507,11 @@ PrefabInstance:
     - target: {fileID: 148270436999030552, guid: 9433f7b99ebe0224da82bcf6122ebeeb, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
     - target: {fileID: 148270436999030552, guid: 9433f7b99ebe0224da82bcf6122ebeeb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -4570773773184666104, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
     - target: {fileID: 4477094478400153202, guid: 9433f7b99ebe0224da82bcf6122ebeeb, type: 3}
       propertyPath: m_Name
       value: BombCnt
@@ -4833,16 +4833,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4976224526774806302, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
       propertyPath: m_fontSize
-      value: 229.4
+      value: 267.15
       objectReference: {fileID: 0}
     - target: {fileID: 4976224526774806302, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
     - target: {fileID: 4976224526774806302, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: -4570773773184666104, guid: 021b43f9689dd0f44bd9e374a2026f2e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a85b3efc3f352747ab65d43b264d53e, type: 3}
 --- !u!224 &5261188825413461041 stripped

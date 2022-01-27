@@ -27,16 +27,10 @@ public class PlayerColor : MonoBehaviour
         else
         {
             // every 2 players form 1 team
-            if (playerNum < 2)
-                playerColor = CGameColors.getDefColor(0);
-            else if (playerNum < 4)
+            if (playerNum % 2 == 0)
                 playerColor = CGameColors.getDefColor(1);
-            else if (playerNum < 6)
-                playerColor = CGameColors.getDefColor(2);
-            else if (playerNum < 8)
-                playerColor = CGameColors.getDefColor(3);
             else
-                playerColor = CGameColors.getDefColor(default);
+                playerColor = CGameColors.getDefColor(0);
         }
     }
 
@@ -56,17 +50,10 @@ public class PlayerColor : MonoBehaviour
         }
         else
         {
-            // every 2 players form 1 team
-            if (_playerNum < 2)
-                playerColor = CGameColors.getDefColor(0);
-            else if (_playerNum < 4)
+            if (_playerNum % 2 == 0)
                 playerColor = CGameColors.getDefColor(1);
-            else if (_playerNum < 6)
-                playerColor = CGameColors.getDefColor(2);
-            else if (_playerNum < 8)
-                playerColor = CGameColors.getDefColor(3);
             else
-                playerColor = CGameColors.getDefColor(default);
+                playerColor = CGameColors.getDefColor(0);
         }
         return playerColor;
     }

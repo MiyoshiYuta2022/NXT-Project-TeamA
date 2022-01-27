@@ -98,9 +98,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 {
                     if (players[i].IsLocal == true)
                     {
-                        if (i < 2)
+                        if (i % 2 == 0)
                             PhotonNetwork.Instantiate(Path.Combine("blue"), startPos, Quaternion.identity);
-                        if(i < 4 && i >= 2)
+                        else
                             PhotonNetwork.Instantiate(Path.Combine("red"), startPos, Quaternion.identity);
                     }
                 }

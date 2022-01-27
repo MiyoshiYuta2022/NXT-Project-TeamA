@@ -22,7 +22,7 @@ public class LockChack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_Player = GameObject.Find("human()(Clone)");
+        m_Player = GameObject.FindGameObjectWithTag("Player");
         GameObject cameraObj = m_Player.transform.Find("FirstPersonCharacter").gameObject;
         Camera camera = cameraObj.GetComponent<Camera>();
         float y = m_Player.transform.localEulerAngles.y;

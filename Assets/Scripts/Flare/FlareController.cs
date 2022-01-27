@@ -27,7 +27,7 @@ public class FlareController : MonoBehaviour
         if (m_FlareParent.activeSelf)
         {
             // human‚ðHierarchy‚©‚ç‚Ý‚Â‚¯‚é
-            m_Player = GameObject.Find("human()(Clone)");
+            m_Player = GameObject.FindGameObjectWithTag("Player");
 
             this.transform.position = m_Target.transform.position - m_Player.transform.position;
             m_Flare1.transform.position = (m_Target.transform.position - m_Player.transform.position) / 3;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using System.IO;
 
@@ -83,7 +84,27 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if(scene.buildIndex==1) // in first game/level scene
         {
             Vector3 startPos = new Vector3(Random.Range(-10f,10f), 10f, Random.Range(-10f, 10f));
-            PhotonNetwork.Instantiate(Path.Combine("human()"), startPos, Quaternion.identity);
+            bool gameMode = (bool)PhotonNetwork.MasterClient.CustomProperties["Mode"];
+
+            if (gameMode)
+            {
+                PhotonNetwork.Instantiate(Path.Combine("blue"), startPos, Quaternion.identity);
+            }
+            else
+            {
+                Player[] players = PhotonNetwork.PlayerList;
+
+                for (int i = 0; i < players.Length; ++i)
+                {
+                    if (players[i].IsLocal == true)
+                    {
+                        if (i % 2 == 0)
+                            PhotonNetwork.Instantiate(Path.Combine("blue"), startPos, Quaternion.identity);
+                        else
+                            PhotonNetwork.Instantiate(Path.Combine("red"), startPos, Quaternion.identity);
+                    }
+                }
+            }
         }
     }
 
